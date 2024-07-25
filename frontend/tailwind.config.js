@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        'white': '#f8f9f0',
-        'bright gray': '#e6ebef',
+        'sr-white': '#f8f9f0',
+        'sr-bright gray': '#e6ebef',
+        'sr-black': '#00050f'
       }
     },
     fontFamily: {
