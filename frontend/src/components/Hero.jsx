@@ -7,12 +7,13 @@ const Hero = () => {
       className="relative w-full h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(${HeroImage})` }}
     >
-      <div className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white">
-        <h1 className="text-5xl font-body font-bold">Find your perfect place</h1>
+      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="text-center bg-transparent">
+          <h1 className="text-5xl font-body font-bold bg-transparent text-white">Find your perfect place</h1>
+        </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default Hero;
