@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 const Navbar = () => {
 
   const linkClass = ({ isActive }) =>
-    isActive ? 'font-body font-medium py-2 px-5 border border-sr-black rounded-full text-sr-white bg-sr-black' : 'font-body font-medium py-2 px-5 border border-sr-black rounded-full text-sr-black';
+    isActive ? 'font-body font-medium py-2 px-5 border border-sr-black rounded-full text-sr-white bg-sr-black' : 'nav-links font-body font-medium py-2 px-5 border border-sr-black rounded-full text-sr-black';
 
   return (
     <nav className='w-screen border-b-sr-black border-b flex items-center justify-between px-6 py-4'>
