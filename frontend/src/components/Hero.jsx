@@ -4,7 +4,7 @@ import HeroImage from '../assets/images/HeroImage.jpg';
 const Hero = () => {
   return (
     <section
-      className="relative w-full h-screen bg-cover bg-center"
+      className="relative w-full h-screen bg-cover bg-center px-6 py-4"
       style={{ backgroundImage: `url(${HeroImage})` }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
