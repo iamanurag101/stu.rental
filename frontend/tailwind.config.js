@@ -8,8 +8,10 @@ export default {
     extend: {
       colors: {
         'sr-white': '#f8f9f0',
-        'sr-bright-gray': '#e6ebef',
-        'sr-black': '#00050f'
+        'sr-bright-gray': '#bcbfc2',
+        'sr-black': '#00050f',
+        'sr-green': '#d6ffdf',
+        'sr-text-green': '#4ec869'
       }
     },
     fontFamily: {

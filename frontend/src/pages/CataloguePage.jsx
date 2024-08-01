@@ -1,8 +1,22 @@
-import React from 'react'
+import React from 'react';
+import CatalogueItems from '../components/CatalogueItems';
+import { FaAngleRight } from 'react-icons/fa6';
+import { useEffect } from 'react';
 
 const CataloguePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div>CataloguePage</div>
+    <>
+      <div className='flex gap-2 items-center px-6'>
+        <span className='font-body'>Home</span>
+        <FaAngleRight />
+        <span className='font-body font-semibold'>Catalogue</span>
+      </div>
+      <CatalogueItems />
+    </>
   )
 }
 
