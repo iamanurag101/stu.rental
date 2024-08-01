@@ -8,7 +8,7 @@ const CatalogueItems = ({ isHome = false }) => {
         <section className="px-4 py-6 rounded-xl">
             <div className="container-xl lg:container m-auto">
                 <div className='flex justify-between items-baseline'>
-                    <h2 className="text-5xl font-body font-medium text-sr-black mb-6 px-4">
+                    <h2 className="text-3xl md:text-5xl font-body font-medium text-sr-black mb-6 px-4">
                         {isHome ? 'Popular Accommodation' : 'Catalogue Items'}
                     </h2>
                     <Link to='/Catalogue' className='text-links flex items-center'>
