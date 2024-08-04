@@ -4,6 +4,7 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
 import CataloguePage from './pages/CataloguePage';
 import UserPage from './pages/UserPage';
+import ClientErrorPage from './pages/ClientErrorPage';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path='/Catalogue' element={<CataloguePage />} />
         <Route path='/User' element={<UserPage />} />
+        <Route path='*' element={<ClientErrorPage />} />
       </Route>
     )
   )
