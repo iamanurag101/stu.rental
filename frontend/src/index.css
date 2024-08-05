@@ -75,3 +75,11 @@ html, body {
   transform-origin: left;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d7c0a1;
+  border-radius: 500px;
+}
