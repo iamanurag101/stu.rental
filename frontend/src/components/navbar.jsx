@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import StuRentalLogo from '../assets/logo/stu.rental.svg';
-import { HiMenu, HiX } from 'react-icons/hi';
+import { FaBars, FaX } from 'react-icons/fa6';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ const Navbar = () => {
       <div className='flex items-center justify-between w-full lg:w-auto'>
         <img src={StuRentalLogo} alt="Stu.Rental" aria-label='Stu.Rental Logo' className='h-14' />
         <button className='lg:hidden text-sr-black' onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <HiX className='h-8 w-8' /> : <HiMenu className='h-8 w-8' />}
+          {isOpen ? <FaX className='h-5 w-5'/> : <FaBars className='h-5 w-5'/>}
         </button>
       </div>
       <div
@@ -29,7 +29,7 @@ const Navbar = () => {
       >
         {isOpen && (
           <button className='fixed top-4 right-4 text-sr-black lg:hidden' onClick={() => setIsOpen(false)}>
-            <HiX className='h-8 w-8' />
+            <FaX className='h-5 w-5' />
           </button>
         )}
         <NavLink to="/" className={linkClass} onClick={() => setIsOpen(false)}>
