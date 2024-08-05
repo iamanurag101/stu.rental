@@ -12,7 +12,7 @@ const CataloguePage = () => {
   return (
     <>
       <div className='flex gap-2 items-center px-6'>
-        <Link to="/" className='font-body hover:font-semibold'>Home</Link>
+        <Link to="/" className='font-body text-links'>Home</Link>
         <FaAngleRight />
         <span className='font-body font-semibold'>Catalogue</span>
       </div>
