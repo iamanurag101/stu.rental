@@ -7,9 +7,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const linkClass = ({ isActive }) => {
-    const baseStyle = 'font-body font-medium py-2 px-5 border rounded-full text-center my-2';
-    const activeStyle = 'border-sr-black bg-sr-black text-sr-white w-4/5 lg:w-full';
-    const inactiveStyle = 'border-sr-black text-sr-black bg-transparent w-4/5 lg:w-full';
+    const baseStyle = `nav-links font-body font-medium py-2 px-5 border rounded-full text-center my-2 ${isOpen ? 'w-[80%]' : ''}`;
+    const activeStyle = 'border-sr-black bg-sr-black text-sr-white';
+    const inactiveStyle = 'border-sr-black text-sr-black bg-transparent';
   
     return `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`;
   };  
@@ -28,7 +28,7 @@ const Navbar = () => {
         }`}
       >
         {isOpen && (
-          <button className='fixed top-4 right-4 text-sr-black lg:hidden' onClick={() => setIsOpen(false)}>
+          <button className='fixed top-6 right-4 text-sr-black lg:hidden' onClick={() => setIsOpen(false)}>
             <FaX className='h-5 w-5' />
           </button>
         )}
