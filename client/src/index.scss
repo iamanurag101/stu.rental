@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Overused Grotesk';
+    src: url(client\src\assets\fonts\OverusedGrotesk-VF.woff2) format('woff2');
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: 'Overused Grotesk';
+    overflow: hidden;
+    background-color: #f8f9f0;
+}
+
