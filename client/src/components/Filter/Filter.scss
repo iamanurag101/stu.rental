@@ -1,0 +1,104 @@
+@import '../../responsive.scss';
+
+.filter {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  .top, .bottom {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    align-items: flex-end;
+
+    .item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+        color: #bcbfc2;
+      }
+
+      .input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .icon {
+          position: absolute;
+          left: 0.5rem;
+          color: #00050f;
+          font-size: 1rem;
+        }
+
+        input, select {
+          padding-left: 2rem;
+          padding-right: 0.25rem;
+          padding-top: 0.625rem;
+          padding-bottom: 0.625rem;
+          border-radius: 0.75rem;
+          font-size: 0.75rem;
+          background-color: #f8f9f0;
+          width: 100%;
+          box-sizing: border-box;
+          appearance: none;
+        }
+
+        select {
+          background-color: inherit;
+          border: none;
+        }
+
+        .down-arrow {
+          position: absolute;
+          right: 0.75rem;
+          pointer-events: none;
+          font-size: 0.75rem;
+        }
+
+        input {
+          background-color: inherit;
+          border: none;
+        }
+      }
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      border: none;
+      background-color: #00050f;
+      color: #f8f9f0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+  }
+
+  .top .item .input-wrapper input,
+  .top .item .input-wrapper select {
+    border: 1px solid #bcbfc2;
+  }
+
+  .bottom .item .input-wrapper input,
+  .bottom .item .input-wrapper select {
+    border: none;
+  }
+
+  @include sm {
+    .bottom {
+      flex-direction: column;
+      .item, button {
+        width: 100%;
+      }
+    }
+  }
+}
