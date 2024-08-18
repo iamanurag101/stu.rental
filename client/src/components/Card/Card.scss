@@ -31,11 +31,6 @@
       font-size: 1.25rem;
       font-weight: 600;
       color: #00050f;
-      transition: all 0.4s ease;
-
-      &:hover {
-        scale: 1.01;
-      }
     }
 
     .address {
@@ -99,5 +94,40 @@
           }
       }
     }
+    .nav-links {
+      position: relative;
+      z-index: 1; 
+      display: inline-block;
+      overflow: hidden;
+      padding: 0.5rem 1.25rem;
+      border: solid 1.5px #d7c0a1;
+      width: 100%;
+      text-align: center;
+      border-radius: 1000px;
+      cursor: pointer;
+    
+      &:hover {
+        color: #f8f9f0;
+        font-weight: 500;
+      }
+    
+      &::after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: #d7c0a1;
+        left: 0;
+        bottom: -100%;
+        border-radius: 50px; 
+        transition: all ease-in 0.2s;
+        z-index: -1; 
+      }
+    
+      &:hover::after {
+        bottom: 0;
+        border-radius: 0;
+      }
+    }  
   }
 }

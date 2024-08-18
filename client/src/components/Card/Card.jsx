@@ -10,7 +10,7 @@ function Card({ item }) {
       </Link>
       <div className="textContainer">
         <h2 className="title">
-          <Link to={`/${item.id}`}>{item.title}</Link>
+          {item.title}
         </h2>
         <p className="address">
           <FaLocationDot/>
@@ -32,6 +32,7 @@ function Card({ item }) {
             <FaHeart/>
           </div>
         </div>
+        <Link to={`/${item.id}`}><div className="nav-links">See Listing</div></Link>
       </div>
     </div>
   );
