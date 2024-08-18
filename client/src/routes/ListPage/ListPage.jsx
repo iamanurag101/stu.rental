@@ -5,6 +5,7 @@ import Filter from '../../components/Filter/Filter';
 import Card from '../../components/Card/Card';
 import { Link } from 'react-router-dom';
 import { FaAngleRight } from 'react-icons/fa6';
+import Map from '../../components/Map/Map';
 
 const ListPage = ({ isHome }) => {
   const displayedData = isHome ? listData.slice(0, 3) : listData;
@@ -26,7 +27,9 @@ const ListPage = ({ isHome }) => {
           </div>
         </div>
       </div>
-      <div className="mapContainer"></div>
+      <div className="mapContainer">
+        <Map items={listData}/>
+      </div>
     </div>
   );
 }
