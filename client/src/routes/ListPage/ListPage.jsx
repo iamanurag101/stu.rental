@@ -6,27 +6,29 @@ import Card from '../../components/Card/Card';
 import { Link } from 'react-router-dom';
 import { FaAngleRight } from 'react-icons/fa6';
 
-const ListPage = () => {
+const ListPage = ({ isHome }) => {
+  const displayedData = isHome ? listData.slice(0, 3) : listData;
 
-  const data = listData;
   return (
-    <div className='listPage'>
-        <div className="listContainer">
-          <div className="wrapper">
-            <div className="breadcrumbs">
-              <Link to="/" className='text-links'>Home</Link>
-              <FaAngleRight />
-              <span className='current-page'>Catalogue</span>
-            </div>        
-            <Filter/>
-            {data.map(item=>(
-              <Card key={item.id} item={item}/>
+    <div className={`listPage ${isHome ? 'homePageStyle' : 'regularPageStyle'}`}>
+      <div className="listContainer">
+        <div className="wrapper">
+          <div className="breadcrumbs">
+            <Link to="/" className='text-links'>Home</Link>
+            <FaAngleRight />
+            <span className='current-page'>{isHome ? 'Home Catalogue' : 'Catalogue'}</span>
+          </div>
+          {!isHome && <Filter />}
+          <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
+            {displayedData.map(item => (
+              <Card key={item.id} item={item} isHome={isHome} />
             ))}
           </div>
         </div>
-        <div className="mapContainer"></div>
+      </div>
+      <div className="mapContainer"></div>
     </div>
-  )
+  );
 }
 
-export default ListPage
+export default ListPage;
