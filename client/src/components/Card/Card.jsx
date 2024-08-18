@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "./Card.scss";
 import { FaHeart, FaLocationDot, FaBed, FaBath, FaIndianRupeeSign } from 'react-icons/fa6';
 
-function Card({ item }) {
+function Card({ item,isHome }) {
   return (
-    <div className="card">
+    <div className={`card ${isHome ? 'homeCard' : 'regularCard'}`}>
       <Link to={`/${item.id}`} className="imageContainer">
         <img src={item.img} alt="" />
       </Link>
