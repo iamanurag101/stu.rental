@@ -1,7 +1,7 @@
 @import '../../responsive.scss';
 
 nav {
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,7 +64,6 @@ nav {
         align-items: center;
         justify-content: flex-end;
         gap: 0.5rem;
-        margin-right: 1rem;
 
         a {
             @include sm {
