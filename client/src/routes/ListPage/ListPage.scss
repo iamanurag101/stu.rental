@@ -115,4 +115,9 @@
     flex-wrap: nowrap;
     gap: 1rem;
     justify-content: space-between;
+    overflow: hidden;
+
+    @include md {
+        flex-wrap: wrap;
+    }
 }

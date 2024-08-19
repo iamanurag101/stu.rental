@@ -144,7 +144,6 @@
     box-sizing: border-box; 
 
     .imageContainer {
-        flex: 2;
         height: 200px; 
 
         img {
@@ -156,10 +155,9 @@
     }
 
     .textContainer {
-        flex: 3;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         gap: 0.5rem;
         font-size: 1rem;
 
