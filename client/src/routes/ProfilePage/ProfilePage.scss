@@ -1,0 +1,130 @@
+@import '../../responsive.scss';
+
+.profilePage {
+    display: flex;
+    height: calc(100vh - 3rem);
+    padding: 0 20px;
+  
+    @include md {
+      flex-direction: column;
+      overflow: scroll;
+    }
+  
+    .details {
+      height: 100%;
+      flex: 1;
+      overflow-y: scroll;
+      padding-bottom: 5rem;
+  
+      @include md {
+        flex: none;
+        height: max-content;
+      }
+  
+      .wrapper {
+        padding-right: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+  
+        .info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          padding: 0.5rem 0.8rem;
+          border-radius: 1.5rem;
+          background-color: inherit;
+          font-weight: 500;
+          font-size: 1rem;
+
+          @include sm {
+            flex-direction: column;
+          }
+  
+          .image {
+            img {
+              height: 150px;
+              width: 300px;
+              object-fit: cover;
+              overflow: hidden;
+              border-radius: 0.8rem;
+            }
+          }
+  
+          .text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.5rem 0.8rem;
+            font-weight: 500;
+            font-size: 1.5rem;
+            background-color: inherit;
+            color: #00050f;
+            height: 100%;
+          }
+        }
+  
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+  
+          h1 {
+            font-weight: 400;
+          }
+  
+          .nav-links {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            overflow: hidden;
+            padding: 0.5rem 1.25rem;
+            border: solid 1.5px #d7c0a1;
+            border-radius: 1000px;
+            cursor: pointer;
+            background-color: #f8f9f0;
+  
+            @include sm {
+              display: none;
+            }
+  
+            &:hover {
+              color: #f8f9f0;
+              font-weight: 500;
+            }
+  
+            &::after {
+              content: "";
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              background-color: #d7c0a1;
+              left: 0;
+              bottom: -100%;
+              border-radius: 50px;
+              transition: all ease-in 0.2s;
+              z-index: -1;
+            }
+  
+            &:hover::after {
+              bottom: 0;
+              border-radius: 0;
+            }
+          }
+        }
+      }
+  
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: #d7c0a1;
+        border-radius: 500px;
+      }
+    }
+  }
+  
