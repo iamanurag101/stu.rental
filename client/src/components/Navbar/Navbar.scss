@@ -71,6 +71,35 @@ nav {
             }
         }
 
+        .user {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-weight: 600;
+
+            @include sm {
+                span {
+                    display: none;
+                }
+            }
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-right: 8px;
+            }
+
+            .profile {
+                padding: 12px 24px;
+                background-color: #fece51;
+                cursor: pointer;
+                border: none;
+                position: relative;
+            }
+        }
+
         .text-links {
             position: relative;
           

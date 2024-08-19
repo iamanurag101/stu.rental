@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './Navbar.scss';
-import { FaBars, FaX } from 'react-icons/fa6'
+import { FaBars, FaX } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const[open,setOpen] = useState(false);
+
+  const user = true;
 
   return (
     <nav>
@@ -19,8 +22,16 @@ const Navbar = () => {
         </div>   
       </div>
       <div className="right">
-        <a href='/' className='text-links'>Sign In</a>
-        <a href='/' className='nav-links'>Sign Up</a>
+        {user ? 
+        (<div className='user'>
+          <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
+          <span>John Doe</span>
+          <Link to="/profile" className='profile'>Profile</Link>
+        </div>) : 
+        (<>
+          <a href='/' className='text-links'>Sign In</a>
+          <a href='/' className='nav-links'>Sign Up</a>
+        </>)}
         <div className="menu-icon" onClick={() => setOpen((prev) => !prev)}>
           {open ? <FaX style={{color: "#f8f9f0",}}/> : <FaBars/>}
         </div>
