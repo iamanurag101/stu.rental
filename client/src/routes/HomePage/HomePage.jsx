@@ -6,10 +6,13 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
+
 const HomePage = () => {
 
-  // const {currentuser} = useContext(AuthContext);
+  const {currentUser} = useContext(AuthContext);
 
+  console.log(currentUser);
+  
   return (
     <div className='homePage'>
       <div className="textContainer">

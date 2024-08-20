@@ -1,6 +1,6 @@
 import HomePage from './routes/HomePage/HomePage';
 import ListPage from './routes/ListPage/ListPage';
-import Layout from './routes/Layout/Layout';
+import { Layout,RequireAuth } from './routes/Layout/Layout.jsx';
 import SinglePage from './routes/SinglePage/SinglePage';
 import {
   createBrowserRouter,
@@ -30,10 +30,6 @@ function App() {
           element:<SinglePage/>
         },
         {
-          path:"/profile",
-          element:<ProfilePage/>
-        },
-        {
           path:"/login",
           element:<Login/>
         },
@@ -41,6 +37,16 @@ function App() {
           path:'/register',
           element:<Register/>
         }
+      ]
+    },
+    {
+      path:"/",
+      element:<RequireAuth/>,
+      children:[
+        {
+          path:"/profile",
+          element:<ProfilePage/>
+        },
       ]
     },
   ]);

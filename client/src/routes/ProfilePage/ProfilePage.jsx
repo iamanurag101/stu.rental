@@ -9,7 +9,7 @@ import { AuthContext } from '../../Context/AuthContext';
 const ProfilePage = () => {
   const data = useLoaderData();
 
-//   const { updateUser, currentUser } = useContext(AuthContext);
+  const { updateUser, currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -33,14 +33,14 @@ const ProfilePage = () => {
                 </div>
                 <div className="info">
                     <span className='image'>
-                        <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""/>
+                        <img src={currentUser.avatar || './avatar.jpg'}/>
                     </span>
                     <div className="text">
                         <span>
-                            Name: John Doe
+                            Name: {currentUser.username}
                         </span>
                         <span>
-                            E-mail: john@gmail.com
+                            E-mail: {currentUser.email}
                         </span>
                     </div>   
                     <button onClick={handleLogout} className='nav-links'>Logout</button> 

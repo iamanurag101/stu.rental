@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Navbar.scss';
 import { FaBars, FaX } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
 
 const Navbar = () => {
   const[open,setOpen] = useState(false);
 
-  const user = true;
+  const {currentUser} = useContext(AuthContext);
 
   return (
     <nav>
@@ -22,15 +23,15 @@ const Navbar = () => {
         </div>   
       </div>
       <div className="right">
-        {user ? 
+        {currentUser ? 
         (<div className='user'>
-          <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" />
-          <span>John Doe</span>
+          <img src={currentUser.avatar || './avatar.jpg'} />
+          <span>{currentUser.username}</span>
           <Link to="/profile" className='nav-links'>Profile</Link>
         </div>) : 
         (<>
-          <a href='/' className='text-links'>Sign In</a>
-          <a href='/' className='nav-links'>Sign Up</a>
+          <a href='/login' className='text-links'>Sign In</a>
+          <a href='/register' className='nav-links'>Sign Up</a>
         </>)}
         <div className="menu-icon" onClick={() => setOpen((prev) => !prev)}>
           {open ? <FaX style={{color: "#f8f9f0",}}/> : <FaBars/>}
