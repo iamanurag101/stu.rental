@@ -7,6 +7,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage/ProfilePage';
+import Login from './routes/login/Login';
+import Register from './routes/Register/Register';
 
 function App() {
 
@@ -31,6 +33,14 @@ function App() {
           path:"/profile",
           element:<ProfilePage/>
         },
+        {
+          path:"/login",
+          element:<Login/>
+        },
+        {
+          path:'/register',
+          element:<Register/>
+        }
       ]
     },
   ]);
