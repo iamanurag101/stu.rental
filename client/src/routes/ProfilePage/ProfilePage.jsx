@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './ProfilePage.scss';
 import List from '../../components/List/List';
 import apiRequest from '../../lib/apiRequest';
-import { Await, Link, useLoaderData, useNavigate } from 'react-router-dom';
-import { Suspense, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
 const ProfilePage = () => {
-  const data = useLoaderData();
-
   const { updateUser, currentUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -29,11 +25,13 @@ const ProfilePage = () => {
             <div className="wrapper">
                 <div className="title">
                     <h1>User Information</h1>
-                    <button className='nav-links'>Update Profile</button>
+                    <Link to="/profile/update">
+                        <button className='nav-links'>Update Profile</button>
+                    </Link>
                 </div>
                 <div className="info">
                     <span className='image'>
-                        <img src={currentUser.avatar || './avatar.jpg'}/>
+                        <img src={currentUser.avatar || './avatar.jpg'} alt="User Avatar"/>
                     </span>
                     <div className="text">
                         <span>
@@ -47,7 +45,9 @@ const ProfilePage = () => {
                 </div>
                 <div className="title">
                     <h1>My Listings</h1>
-                    <button className='nav-links'>Add new listing</button>
+                    <Link to="/add">
+                        <button className='nav-links'>Add new listing</button>
+                    </Link>
                 </div>
                 <List/>
                 <div className="title">
@@ -60,4 +60,4 @@ const ProfilePage = () => {
   )
 }
 
-export default ProfilePage
+export default ProfilePage;
