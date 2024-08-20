@@ -1,8 +1,28 @@
 import React from 'react';
 import './ProfilePage.scss';
 import List from '../../components/List/List';
+import apiRequest from '../../lib/apiRequest';
+import { Await, Link, useLoaderData, useNavigate } from 'react-router-dom';
+import { Suspense, useContext } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
 
 const ProfilePage = () => {
+  const data = useLoaderData();
+
+//   const { updateUser, currentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await apiRequest.post("/auth/logout");
+      updateUser(null);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className='profilePage'>
         <div className="details">
@@ -22,7 +42,8 @@ const ProfilePage = () => {
                         <span>
                             E-mail: john@gmail.com
                         </span>
-                    </div>    
+                    </div>   
+                    <button onClick={handleLogout} className='nav-links'>Logout</button> 
                 </div>
                 <div className="title">
                     <h1>My Listings</h1>

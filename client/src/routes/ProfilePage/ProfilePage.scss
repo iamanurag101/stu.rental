@@ -29,10 +29,10 @@
   
         .info {
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: space-between;
           gap: 1rem;
-          padding: 0.5rem 0.8rem;
+          padding: 0rem 0.8rem;
           border-radius: 1.5rem;
           background-color: inherit;
           font-weight: 500;
@@ -40,6 +40,7 @@
 
           @include sm {
             flex-direction: column;
+            align-items: flex-start;
           }
   
           .image {
@@ -58,12 +59,53 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 1rem;
-            padding: 0.5rem 0.8rem;
+            // padding: 0.5rem 0.8rem;
             font-weight: 500;
             font-size: 1.5rem;
             background-color: inherit;
             color: #00050f;
             height: 100%;
+            margin-bottom: 1rem;
+
+            @include sm {
+              font-size: 1rem;
+            }
+          }
+
+          .nav-links {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            overflow: hidden;
+            padding: 0.5rem 1.25rem;
+            border: solid 1.5px #00050f;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            background-color: #f8f9f0;
+            margin: 0.8rem 0rem;
+  
+            &:hover {
+              color: #f8f9f0;
+              font-weight: 500;
+            }
+  
+            &::after {
+              content: "";
+              position: absolute;
+              height: 100%;
+              width: 100%;
+              background-color: #00050f;
+              left: 0;
+              bottom: -100%;
+              border-radius: 50px;
+              transition: all ease-in 0.2s;
+              z-index: -1;
+            }
+  
+            &:hover::after {
+              bottom: 0;
+              border-radius: 0;
+            }
           }
         }
   
