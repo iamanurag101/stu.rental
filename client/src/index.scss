@@ -6,7 +6,11 @@
 
 @font-face {
     font-family: 'Overused Grotesk';
-    src: url(client\src\assets\fonts\OverusedGrotesk-VF.woff2) format('woff2');
+    src: url(client\src\assets\fonts\OverusedGrotesk-VF.woff2) format('woff2'),
+         url(client\src\assets\fonts\OverusedGrotesk-VF.woff) format('woff'),
+         url(client\src\assets\fonts\OverusedGrotesk-VF.ttf) fromat('truetype');
+
+
 }
 
 a {
@@ -15,7 +19,7 @@ a {
 }
 
 body {
-    font-family: 'Overused Grotesk';
+    font-family: 'Overused Grotesk', sans-serif;
     overflow: hidden;
     background-color: #f8f9f0;
 }
