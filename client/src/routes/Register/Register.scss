@@ -10,26 +10,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .company {
+        h1 {
+          font-weight: 500;
+          font-size: 2rem;
+        }
+      }
   
       form {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 0.5rem;
   
         input {
-          padding: 20px;
-          border: 1px solid gray;
-          border-radius: 5px;
+          padding: 1.25rem;
+          border: 1px solid #bcbfc2;
+          border-radius: 0.5rem;
+          font-size: 0.75rem;
         }
   
         button {
-          padding: 20px;
-          border-radius: 5px;
+          padding: 1.25rem;
+          border-radius: 0.5rem;
           border: none;
-          background-color: teal;
-          color: white;
-          font-weight: bold;
+          background-color: #00050f;
+          color: #f8f9f0;
+          font-weight: 600;
           cursor: pointer;
+          margin-bottom: 0.5rem;
   
           &:disabled {
             background-color: #bed9d8;
@@ -42,9 +51,9 @@
         }
   
         a {
-          font-size: 14px;
-          color: gray;
-          border-bottom: 1px solid gray;
+          font-size: 0.875rem;
+          color: #bcbfc2;
+          border-bottom: 1px solid #bcbfc2;
           width: max-content;
         }
       }
@@ -68,20 +77,20 @@
       .overlay {
         position: absolute;
         inset: 0;
-        background-color: rgba($color: #00050f, $alpha: 0.5);
+        background-color: rgba($color: #00050f, $alpha: 0.6);
         display: flex;
         align-items: flex-end;
-        justify-content: center;
+        justify-content: flex-start;
         border-radius: 0.75rem;
 
         .text {
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
-          padding-bottom: 1.75rem;
           color: #f8f9f0;
-          padding-left: 1rem;
-          padding-bottom: 1rem;
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+          padding-bottom: 1.5rem;
 
           .quote {
             font-size: 1.2rem;

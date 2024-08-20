@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import apiRequest from "../../lib/apiRequest";
 import HeroImg from "../../assets/images/HeroImg.jpg";
+import logo from "../../logo/stu.rental.svg";
 
 function Register() {
   const [error, setError] = useState("");
@@ -39,7 +40,10 @@ function Register() {
     <div className="registerPage">
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
-          <h1>Create an Account</h1>
+          <div className="company">
+            <img src={logo} alt="" />
+            <h1>Create an Account</h1>
+          </div>
           <input name="username" type="text" placeholder="Username" />
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
