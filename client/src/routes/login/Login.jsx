@@ -3,6 +3,8 @@ import "./Login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../Context/AuthContext";
+import HeroImg from "../../assets/images/HeroImg2.jpg";
+import logo from "../../logo/stu.rental.svg";
 
 function Login() {
   const [error, setError] = useState("");
@@ -38,9 +40,22 @@ function Login() {
   };
   return (
     <div className="login">
+      <div className="imgContainer">
+        <div className="image" style={{ backgroundImage: `url(${HeroImg})` }}>
+          <div className="overlay">
+            <div className="text">
+              <div className="quote">Peace - that was the other name for home.</div>
+              <div className="author">~ Kathleen Norris</div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
-          <h1>Welcome back</h1>
+          <div className="company">
+            <img src={logo} alt="" />
+            <h1>Welcome Back</h1>
+          </div>
           <input
             name="username"
             required
@@ -59,9 +74,6 @@ function Login() {
           {error && <span>{error}</span>}
           <Link to="/register">{"Don't"} you have an account?</Link>
         </form>
-      </div>
-      <div className="imgContainer">
-        <img src="/bg.png" alt="" />
       </div>
     </div>
   );
