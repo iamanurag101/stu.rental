@@ -4,7 +4,9 @@
   
     .formContainer {
       flex: 3;
-      overflow: scroll;
+      //overflow: scroll;
+      max-height: 100vh; /* I have wrote lines 8 and 9 to allow scroll */
+      overflow: auto;
   
       .wrapper {
         margin: 30px 50px 100px 0px;
