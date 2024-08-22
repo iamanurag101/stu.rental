@@ -7,8 +7,10 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage/ProfilePage';
+import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage.jsx';
 import Login from './routes/login/Login';
 import Register from './routes/Register/Register';
+import NewPostPage from './routes/NewPostPage/NewPostPage.jsx';
 
 function App() {
 
@@ -47,13 +49,20 @@ function App() {
           path:"/profile",
           element:<ProfilePage/>
         },
-      ]
+        {
+          path:"/profile/update",
+          element:<ProfileUpdatePage/>
+        },
+        {
+          path:"/add",
+          element:<NewPostPage/>
+        },
+      ],
     },
   ]);
 
-  return (
-    <RouterProvider router={router}/>
-  )
+  return <RouterProvider router={router}/>
+  
 }
 
 export default App

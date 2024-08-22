@@ -6,8 +6,7 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
-
-const HomePage = () => {
+function HomePage() {
 
   const {currentUser} = useContext(AuthContext);
 
@@ -27,7 +26,7 @@ const HomePage = () => {
       </div>
       <ListPage isHome={true}/>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;
