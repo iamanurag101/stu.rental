@@ -10,7 +10,7 @@ function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const {updateUser} = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function Login() {
         password,
       });
 
-      updateUser(res.data)
+      updateUser(res.data);
 
       navigate("/");
     } catch (err) {
@@ -38,22 +38,13 @@ function Login() {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="login">
-      <div className="imgContainer">
-        <div className="image" style={{ backgroundImage: `url(${HeroImg})` }}>
-          <div className="overlay">
-            <div className="text">
-              <div className="quote">Peace - that was the other name for home.</div>
-              <div className="author">~ Kathleen Norris</div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <div className="company">
-            <img src={logo} alt="" />
+            <img src={logo} alt="Company Logo" />
             <h1>Welcome Back</h1>
           </div>
           <input
@@ -74,6 +65,16 @@ function Login() {
           {error && <span>{error}</span>}
           <Link to="/register">{"Don't"} you have an account?</Link>
         </form>
+      </div>
+      <div className="imgContainer">
+        <div className="image" style={{ backgroundImage: `url(${HeroImg})` }}>
+          <div className="overlay">
+            <div className="text">
+              <div className="quote">Peace - that was the other name for home.</div>
+              <div className="author">~ Kathleen Norris</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
