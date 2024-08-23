@@ -1,18 +1,14 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import './ListPage.scss';
-import { useLoaderData, Await } from 'react-router-dom';
+import { listData } from '../../lib/dummyData';
 import Filter from '../../components/Filter/Filter';
 import Card from '../../components/Card/Card';
-import Map from '../../components/Map/Map';
 import { Link } from 'react-router-dom';
 import { FaAngleRight } from 'react-icons/fa6';
+import Map from '../../components/Map/Map';
 
-function ListPage({ isHome }) {
-  const data = useLoaderData();
-
-  if (!data || !data.postResponse) {
-    return <p>Error: Data not found.</p>;
-  }
+const ListPage = ({ isHome }) => {
+  const displayedData = isHome ? listData.slice(0, 3) : listData;
 
   return (
     <div className={`listPage ${isHome ? 'homePageStyle' : 'regularPageStyle'}`}>
@@ -24,31 +20,15 @@ function ListPage({ isHome }) {
             <span className='current-page'>{isHome ? 'Home Catalogue' : 'Catalogue'}</span>
           </div>
           {!isHome && <Filter />}
-          <Suspense fallback={<p>Loading...</p>}>
-            <Await
-              resolve={data.postResponse}
-              errorElement={<p>Error loading posts!</p>}
-            >
-              {(postResponse) => (
-                <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
-                  {postResponse.data.slice(0, isHome ? 3 : postResponse.data.length).map(item => (
-                    <Card key={item.id} item={item} isHome={isHome} />
-                  ))}
-                </div>
-              )}
-            </Await>
-          </Suspense>
+          <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
+            {displayedData.map(item => (
+              <Card key={item.id} item={item} isHome={isHome} />
+            ))}
+          </div>
         </div>
       </div>
       <div className="mapContainer">
-        <Suspense fallback={<p>Loading...</p>}>
-          <Await
-            resolve={data.postResponse}
-            errorElement={<p>Error loading map data!</p>}
-          >
-            {(postResponse) => <Map items={postResponse.data} />}
-          </Await>
-        </Suspense>
+        <Map items={listData}/>
       </div>
     </div>
   );

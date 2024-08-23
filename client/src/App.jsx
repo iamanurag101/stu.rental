@@ -11,7 +11,6 @@ import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage.jsx'
 import Login from './routes/login/Login';
 import Register from './routes/Register/Register';
 import NewPostPage from './routes/NewPostPage/NewPostPage.jsx';
-import { listPageLoader, singlePageLoader } from './lib/loaders.js';
 
 function App() {
 
@@ -26,13 +25,11 @@ function App() {
         },
         {
           path:"/list",
-          element:<ListPage/>,
-          loader: listPageLoader,
+          element:<ListPage/>
         },
         {
           path:"/:id",
-          element:<SinglePage/>,
-          loader: singlePageLoader,
+          element:<SinglePage/>
         },
         {
           path:"/login",
