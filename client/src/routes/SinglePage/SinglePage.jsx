@@ -1,16 +1,20 @@
 import "./SinglePage.scss";
 import Slider from "../../components/Slider/Slider";
 import Map from "../../components/Map/Map";
-import { singlePostData, userData } from "../../lib/dummyData";
 import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi, FaHospital, FaBus, FaTablets } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import DOMPurify from "dompurify";
 
 function SinglePage() {
 
+  const post = useLoaderData();  // Fetch post details dynamically
+  
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-  let description = singlePostData.description;
+  const postDetail = post.postDetail || {};  // I decided to fallback to an empty object if postDetail is null
+  let description = postDetail.desc || 'No description available';  // I decided to drop a default message if description is missing
 
   if (!showFullDescription) {
     description = description.substring(0, 200) + '...';
@@ -21,61 +25,62 @@ function SinglePage() {
       <div className="breadcrumbs">
         <div className="left">
           <Link to="/"><span className="text-links">Home</span></Link>
-          <FaAngleRight className="icons"/>
+          <FaAngleRight className="icons" />
           <Link to="/list"><span className="text-links">Catalogue</span></Link>
-          <FaAngleRight className="icons"/>
-          <span className="title">{singlePostData.title}</span>
+          <FaAngleRight className="icons" />
+          <span className="title">{post.title}</span>
         </div>
         <div className="right">
           <span>Like</span>
-          <FaHeart className="icon"/>
+          <FaHeart className="icon" />
         </div>
       </div>
       <div className="content">
-        <Slider images={singlePostData.images} className='slider'/>
+        <Slider images={post.images} className="slider" />
         <div className="text-content">
           <div className="property-details">
             <div className="basic-info">
-              <h1 className="title">{singlePostData.title}</h1>
-              <span className="rent"><FaIndianRupeeSign className="icons"/>{singlePostData.price}/<span className="type">month</span></span>
+              <h1 className="title">{post.title}</h1>
+              <span className="rent"><FaIndianRupeeSign className="icons" />{post.price}/<span className="type">month</span></span>
             </div>
             <div className="sizes">
-              <span className="size"><FaBed/>{singlePostData.bedRooms} {singlePostData.bedRooms === 1 ? 'Bedroom' : 'Bedrooms'}</span>
-              <span className="size"><FaBath/>{singlePostData.bathroom} {singlePostData.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
-              <span className="size"><FaExpand/>{singlePostData.size} sq. m</span>
+              <span className="size"><FaBed />{post.bedRooms} {post.bedRooms === 1 ? 'Bedroom' : 'Bedrooms'}</span>
+              <span className="size"><FaBath />{post.bathroom} {post.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
+              <span className="size"><FaExpand />{post.postDetail.size} sq. m</span>
             </div>
             <div className="amenities">
               <h1 className="title">Amenities</h1>
               <div className="amenity-wrapper">
-                <div className="amenity"><FaWifi/>Wi-Fi</div>
-              </div>  
+                <div className="amenity"><FaWifi />Wi-Fi</div>
+              </div>
             </div>
             <div className="description">
               <h1 className="title">Description</h1>
-              <div className="text">
-                <p>{description}</p>
-                <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
-                  {showFullDescription ? 'Read Less' : 'Read More'}
-                </span>
-              </div> 
+              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />
+              <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
+                {showFullDescription ? 'Read Less' : 'Read More'}
+              </span>
             </div>
             <div className="location">
               <h1 className="title">Location</h1>
               <div className="nearby-wrapper">
-                <div className="near-by"><FaHospital className="icons"/><span>Hospital</span>{singlePostData.hospital}</div>
-                <div className="near-by"><FaBus className="icons"/><span>Bus Stop</span>{singlePostData.busStop}</div>
-                <div className="near-by"><FaTablets className="icons"/><span>Pharmacy</span>{singlePostData.pharmacy}</div>
+                <div className="near-by"><FaHospital className="icons" /><span>Hospital</span>{post.hospital}</div>
+                <div className="near-by"><FaBus className="icons" /><span>Bus Stop</span>{post.busStop}</div>
+                <div className="near-by"><FaTablets className="icons" /><span>Pharmacy</span>{post.pharmacy}</div>
               </div>
             </div>
           </div>
           <div className="author">
-            <img src={userData.img} alt="" />
-            <span className="name">{userData.name}</span>
-            <a href={`mailto:${userData.mail}`} className="nav-links">Send a message</a>
+            {post.user && (
+              <>
+                <img src={post.user.avatar} alt={`${post.user.username}'s avatar`} />
+                <span className="name">{post.user.username}</span>
+              </>
+            )}
           </div>
         </div>
         <div className="mapContainer">
-          <Map items={[singlePostData]} />
+          <Map items={[post]} />
         </div>
       </div>
     </div>
