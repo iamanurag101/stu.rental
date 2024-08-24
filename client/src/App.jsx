@@ -22,7 +22,8 @@ function App() {
       children:[
         {
           path:"/",
-          element:<HomePage/>
+          element:<HomePage/>,
+          loader: listPageLoader,
         },
         {
           path:"/list",
