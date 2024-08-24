@@ -78,8 +78,8 @@ const Filter = () => {
               onChange={handleChange}
             >
               <option value="">Any</option>
-              <option value="apartment">Single</option>
-              <option value="house">Multi Sharing</option>
+              <option value="single">Single</option>
+              <option value="multisharing">Multi Sharing</option>
             </select>
             <FaAngleDown className='down-arrow'/>
           </div>
