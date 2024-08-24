@@ -1,78 +1,131 @@
+@import '../../responsive.scss';
+
 .newPostPage {
+  height: 100vh;
+  display: flex;
+
+  @include md {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .formContainer {
+    flex: 3;
     height: 100%;
-    display: flex;
-  
-    .formContainer {
-      flex: 3;
-      //overflow: scroll;
-      max-height: 100vh; /* I have wrote lines 8 and 9 to allow scroll */
-      overflow: auto;
-  
-      .wrapper {
-        margin: 30px 50px 100px 0px;
-  
-        form {
+    overflow-y: auto;
+    padding-left: 20px;
+
+    @include md {
+      flex: 1;
+      border-bottom: 1px solid #00050f;
+    }
+
+    .wrapper {
+      margin: 30px 50px 100px 0px;
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .item {
+          width: 30%;
           display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 20px;
-  
-          .item {
-            width: 30%;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-  
-            label {
-            }
-  
-            input {
-              padding: 20px;
-              border-radius: 5px;
-              border: 1px solid gray;
-            }
-  
-            select {
-              padding: 19px;
-            }
-  
-            &.description {
-              width: 100%;
-              height: 320px;
-  
-              .quill > .ql-container > .ql-editor{
-                height: 200px;
-                font-size: 16px;
-              }
-            }
-          }
-          .sendButton {
-            width: 30%;
+          flex-direction: column;
+          gap: 5px;
+
+          input {
+            padding: 20px;
             border-radius: 5px;
-            border: none;
-            background-color: teal;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
+            border: 1px solid #bcbfc2;
           }
+
+          select {
+            padding: 19px;
+          }
+
+          &.description {
+            width: 100%;
+            height: 320px;
+
+            .quill > .ql-container > .ql-editor {
+              height: 200px;
+              font-size: 16px;
+            }
+          }
+        }
+
+        .sendButton {
+          width: 30%;
+          border-radius: 5px;
+          border: none;
+          background-color: #00050f;
+          color: #f8f9f0;
+          font-weight: bold;
+          cursor: pointer;
         }
       }
     }
-  
-    .sideContainer {
-      flex: 2;
-      background-color: #fcf5f3;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #d7c0a1;
+      border-radius: 500px;
+    }
+  }
+
+  .sideContainer {
+    flex: 2;
+    padding-left: 20px;
+
+    .img-wrapper {
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
       align-items: center;
-      justify-content: center;
-  
+      justify-content: flex-start; 
+      height: calc(100% - 80px); 
+      overflow-y: auto; 
+      gap: 20px;
+
+      @include md {
+        flex: 1;
+      }
+
       img {
         width: 50%;
         height: 180px;
         object-fit: cover;
         border-radius: 5px;
+
+        @include md {
+          width: 80%;
+        }
+      }
+
+      .uploadButton {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #00050f;
+        color: #f8f9f0;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #d7c0a1;
+        border-radius: 500px;
       }
     }
+    
   }
+}

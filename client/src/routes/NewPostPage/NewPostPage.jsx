@@ -54,7 +54,7 @@ function NewPostPage(){
     return (
         <div className="newPostPage">
             <div className="formContainer">
-                <h1>Add New Post</h1>
+                <h1 style={{fontWeight: 500}}>Add New Post</h1>
                 <div className="wrapper">
                     <form onSubmit={handleSubmit}>
                         <div className="item">
@@ -158,16 +158,19 @@ function NewPostPage(){
                 </div>
             </div>
             <div className="sideContainer">
-            {images.map((image, index) => (
-                <img src={image} key={index} alt="" />
-            ))}
+            <h2 style={{fontWeight: 500}}>Upload Pictures</h2>
+            <div className="img-wrapper">
+                {images.map((image, index) => (
+                    <img src={image} key={index} alt="" />
+                ))}
                 <UploadWidget uwConfig={{
                     multiple:true,
                     cloudName: "dgeoqgc3s",
                     uploadPreset: "stu.rental",
                 }}
                 setState={setImages}
-                />
+                />`
+            </div>   
             </div>
         </div>
     );
