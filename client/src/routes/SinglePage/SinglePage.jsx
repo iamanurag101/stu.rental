@@ -67,7 +67,6 @@ function SinglePage() {
             <div className="sizes">
               <span className="size"><FaBed />{post.bedRooms} {post.bedRooms === 1 ? 'Bedroom' : 'Bedrooms'}</span>
               <span className="size"><FaBath />{post.bathroom} {post.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
-              <span className="size"><FaExpand />{post.postDetail.size} sq. m</span>
             </div>
             <div className="amenities">
               <h1 className="title">Amenities</h1>
@@ -81,14 +80,6 @@ function SinglePage() {
               <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
                 {showFullDescription ? 'Read Less' : 'Read More'}
               </span>
-            </div>
-            <div className="location">
-              <h1 className="title">Location</h1>
-              <div className="nearby-wrapper">
-                <div className="near-by"><FaHospital className="icons" /><span>Hospital</span>{post.hospital}</div>
-                <div className="near-by"><FaBus className="icons" /><span>Bus Stop</span>{post.busStop}</div>
-                <div className="near-by"><FaTablets className="icons" /><span>Pharmacy</span>{post.pharmacy}</div>
-              </div>
             </div>
           </div>
           <div className="author">
