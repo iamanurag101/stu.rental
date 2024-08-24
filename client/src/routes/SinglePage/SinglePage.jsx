@@ -87,6 +87,7 @@ function SinglePage() {
               <>
                 <img src={post.user.avatar} alt={`${post.user.username}'s avatar`} />
                 <span className="name">{post.user.username}</span>
+                <a href={`mailto:${post.user.email}?subject=Enquiry%20regarding%20your%20listing%20on%20stu.rental`} className="nav-links">Send a message</a>
               </>
             )}
           </div>
