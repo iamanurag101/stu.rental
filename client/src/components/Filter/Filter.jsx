@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Filter.scss';
-import { FaMagnifyingGlass, FaIndianRupeeSign, FaDoorOpen, FaBuilding, FaLocationDot, FaPerson, FaPersonDress, FaAngleDown } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaIndianRupeeSign, FaBed, FaBuilding, FaLocationDot, FaPerson, FaPersonDress, FaAngleDown } from "react-icons/fa6";
 import { useSearchParams } from "react-router-dom";
 
 const Filter = () => {
@@ -78,8 +78,8 @@ const Filter = () => {
               onChange={handleChange}
             >
               <option value="">Any</option>
-              <option value="apartment">Single</option>
-              <option value="house">Multi Sharing</option>
+              <option value="single">Single</option>
+              <option value="multisharing">Multi Sharing</option>
             </select>
             <FaAngleDown className='down-arrow'/>
           </div>
@@ -115,7 +115,7 @@ const Filter = () => {
         <div className="item">
           <label htmlFor="bedroom">Bedrooms</label>
           <div className="input-wrapper">
-            <FaDoorOpen className="icon" />
+            <FaBed className="icon" />
             <input
               type="number"
               id="bedroom"
