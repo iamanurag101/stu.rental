@@ -6,6 +6,7 @@
 
     @include md {
       flex-direction: column;
+      gap: 20px;
     }
   
     .formContainer {
@@ -16,6 +17,7 @@
 
       @include md {
         flex: 1;
+        border-bottom: 1px solid #00050f;
       }
 
       form {
