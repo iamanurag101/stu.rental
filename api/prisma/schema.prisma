@@ -34,27 +34,19 @@ model Post {
 }
 
 enum Type {
-  buy
-  rent
+  men
+  women
 }
 
 enum Property {
-  apartment
-  house
-  condo
-  land
+  single
+  multisharing
 }
 
 model PostDetail {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   desc       String
   utilities  String?
-  pet        String?
-  income     String?
-  size       Int?
-  school     Int?
-  bus        Int?
-  restaurant Int?
   post       Post    @relation(fields: [postId], references: [id])
   postId     String  @unique @db.ObjectId
 }
@@ -79,25 +71,4 @@ model User {
   createdAt  DateTime    @default(now())
   posts      Post[]
   savedPosts SavedPost[]
-  chats      Chat[]      @relation(fields: [chatIDs], references: [id])
-  chatIDs    String[]    @db.ObjectId
-}
-
-model Chat {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  users     User[]    @relation(fields: [userIDs], references: [id])
-  userIDs   String[]  @db.ObjectId
-  createdAt DateTime  @default(now())
-  seenBy    String[]  @db.ObjectId
-  messages  Message[]
-  lastMessage String?
-}
-
-model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  text      String
-  userId    String
-  chat      Chat     @relation(fields: [chatId], references: [id])
-  chatId    String   @db.ObjectId
-  createdAt DateTime @default(now())
 }

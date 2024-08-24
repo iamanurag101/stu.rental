@@ -5,13 +5,13 @@ import "./Searchbar.scss";
 import HeroImage from '../../assets/images/HeroImg.jpg';
 
 const typeOptions = [
-  { label: "Men", value: "rent", icon: <FaPerson /> },
-  { label: "Women", value: "buy", icon: <FaPersonDress /> },
+  { label: "Men", value: "men", icon: <FaPerson /> },
+  { label: "Women", value: "women", icon: <FaPersonDress /> },
 ];
 
 function SearchBar() {
   const [query, setQuery] = useState({
-    type: "rent",
+    type: "men",
     city: "",
     minPrice: 0,
     maxPrice: 0,

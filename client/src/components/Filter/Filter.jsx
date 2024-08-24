@@ -7,7 +7,7 @@ const Filter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const [query, setQuery] = useState({
-    gender: searchParams.get("gender") || "Men",
+    type: searchParams.get("type") || "men",
     city: searchParams.get("city") || "",
     minPrice: searchParams.get("minPrice") || "",
     maxPrice: searchParams.get("maxPrice") || "",
@@ -48,21 +48,21 @@ const Filter = () => {
       </div>
       <div className="bottom">
         <div className="item">
-          <label htmlFor="gender">Gender</label>
+          <label htmlFor="type">Gender</label>
           <div className="input-wrapper">
-            {query.gender === "Men" ? (
+            {query.type === "men" ? (
               <FaPerson className="icon" />
             ) : (
               <FaPersonDress className="icon" />
             )}
             <select
-              name='gender'
-              id='gender'
-              value={query.gender}
+              name='type'
+              id='type'
+              value={query.type}
               onChange={handleChange}
             >
-              <option value="Men">Men</option>
-              <option value="Women">Women</option>
+              <option value="men">Men</option>
+              <option value="women">Women</option>
             </select>
             <FaAngleDown className='down-arrow'/>
           </div>
