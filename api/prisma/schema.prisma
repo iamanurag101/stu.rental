@@ -34,27 +34,19 @@ model Post {
 }
 
 enum Type {
-  buy
-  rent
+  men
+  women
 }
 
 enum Property {
-  apartment
-  house
-  condo
-  land
+  single
+  multisharing
 }
 
 model PostDetail {
   id         String  @id @default(auto()) @map("_id") @db.ObjectId
   desc       String
   utilities  String?
-  pet        String?
-  income     String?
-  size       Int?
-  school     Int?
-  bus        Int?
-  restaurant Int?
   post       Post    @relation(fields: [postId], references: [id])
   postId     String  @unique @db.ObjectId
 }
