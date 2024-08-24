@@ -12,6 +12,7 @@ import Login from './routes/login/Login';
 import Register from './routes/Register/Register';
 import NewPostPage from './routes/NewPostPage/NewPostPage.jsx';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders.js';
+import AboutPage from './routes/AboutPage/AboutPage.jsx';
 
 function App() {
 
@@ -29,6 +30,10 @@ function App() {
           path:"/list",
           element:<ListPage/>,
           loader: listPageLoader,
+        },
+        {
+          path:"/about",
+          element: <AboutPage/>
         },
         {
           path:"/:id",
