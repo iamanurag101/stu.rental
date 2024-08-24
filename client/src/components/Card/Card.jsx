@@ -6,7 +6,7 @@ function Card({ item,isHome }) {
   return (
     <div className={`card ${isHome ? 'homeCard' : 'regularCard'}`}>
       <Link to={`/${item.id}`} className="imageContainer">
-        <img src={item.img} alt="" />
+        <img src={item.images[0]} alt="" />
       </Link>
       <div className="textContainer">
         <h2 className="title">
