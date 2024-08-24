@@ -12,6 +12,25 @@ import apiRequest from "../../lib/apiRequest";
 function SinglePage() {
 
   const post = useLoaderData();  // Fetch post details dynamically
+
+  const [saved,setSaved] = useState(post.isSaved)
+
+  const {currentUser} = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleSave = async () => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+    setSaved((prev) => !prev);
+    try {
+      await apiRequest.post("/users/save", { postId: post.id });
+    } catch (err) {
+      console.log(err);
+      setSaved((prev) => !prev);
+    }
+  };
   
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -20,28 +39,6 @@ function SinglePage() {
 
   if (!showFullDescription) {
     description = description.substring(0, 200) + '...';
-  }
-
-  const [saved,setSaved] = useState(post.isSaved)
-
-  const {currentUser} = useContext(AuthContext);
-
-  const navigate = useNavigate();
-
-  const handleSave = async() => {
-    setSaved((prev) => !prev);
-    if(!currentUser) {
-      navigate("/login");
-    }
-    try {
-
-      await apiRequest.post("/users/save", {postId:post.id});
-
-    }
-    catch(err) {
-      console.log(err);
-      
-    }
   }
 
   return (
