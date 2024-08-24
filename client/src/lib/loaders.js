@@ -22,3 +22,10 @@ export const listPageLoader = async ({ request }) => {
     });
   }
 };
+
+export const profilePageLoader = async () => {
+  const postPromise = apiRequest("/users/profilePosts");
+  return defer({
+    postResponse: postPromise,
+  });
+};

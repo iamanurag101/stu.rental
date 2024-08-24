@@ -1,11 +1,12 @@
 import prisma from "../lib/prisma.js";
+import jwt from "jsonwebtoken";
 
 export const getPosts = async (req, res) => {
   const query = req.query;
+
   try {
     const posts = await prisma.post.findMany({
       where: {
-        gender: query.gender || undefined, 
         city: query.city || undefined,
         type: query.type || undefined,
         property: query.property || undefined,
@@ -17,8 +18,9 @@ export const getPosts = async (req, res) => {
       },
     });
 
+    // setTimeout(() => {
     res.status(200).json(posts);
-
+    // }, 3000);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get posts" });
@@ -29,23 +31,49 @@ export const getPost = async (req, res) => {
   const id = req.params.id;
   try {
     const post = await prisma.post.findUnique({
-        where:{id},
-        include: {
-            postDetail: true,
-            user: {
-                select:{
-                    username:true,
-                    avatar:true
-                }
-            },
+      where: { id },
+      include: {
+        postDetail: true,
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
         },
+      },
     });
-    res.status(200).json(post);
+
+    const token = req.cookies?.token;
+
+    if (token) {
+      jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
+        if (!err) {
+          const saved = await prisma.savedPost.findUnique({
+            where: {
+              userId_postId: {
+                postId: id,
+                userId: payload.id,
+              },
+            },
+          });
+          // First response attempt
+          return res.status(200).json({ ...post, isSaved: saved ? true : false });
+        } else {
+          // Token verification failed, respond here if needed
+          return res.status(401).json({ message: "Invalid token" });
+        }
+      });
+      return; // Ensure no further code runs after jwt.verify
+    }
+
+    // Only send this response if no token was found
+    return res.status(200).json({ ...post, isSaved: false });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get post" });
   }
 };
+
 export const addPost = async (req, res) => {
   const body = req.body;
   const tokenUserId = req.userId;
@@ -55,7 +83,7 @@ export const addPost = async (req, res) => {
       data: {
         ...body.postData,
         userId: tokenUserId,
-        postDetail:{
+        postDetail: {
           create: body.postDetail,
         },
       },
@@ -66,6 +94,7 @@ export const addPost = async (req, res) => {
     res.status(500).json({ message: "Failed to create post" });
   }
 };
+
 export const updatePost = async (req, res) => {
   try {
     res.status(200).json();

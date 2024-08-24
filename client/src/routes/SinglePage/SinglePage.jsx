@@ -2,10 +2,12 @@ import "./SinglePage.scss";
 import Slider from "../../components/Slider/Slider";
 import Map from "../../components/Map/Map";
 import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi, FaHospital, FaBus, FaTablets } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { AuthContext } from "../../Context/AuthContext";
+import apiRequest from "../../lib/apiRequest";
 
 function SinglePage() {
 
@@ -20,6 +22,28 @@ function SinglePage() {
     description = description.substring(0, 200) + '...';
   }
 
+  const [saved,setSaved] = useState(post.isSaved)
+
+  const {currentUser} = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleSave = async() => {
+    setSaved((prev) => !prev);
+    if(!currentUser) {
+      navigate("/login");
+    }
+    try {
+
+      await apiRequest.post("/users/save", {postId:post.id});
+
+    }
+    catch(err) {
+      console.log(err);
+      
+    }
+  }
+
   return (
     <div className="singlePage">
       <div className="breadcrumbs">
@@ -30,9 +54,9 @@ function SinglePage() {
           <FaAngleRight className="icons" />
           <span className="title">{post.title}</span>
         </div>
-        <div className="right">
-          <span>Like</span>
-          <FaHeart className="icon" />
+        <div className="right" onClick={handleSave}>
+          <span style={{color: saved ? "#df6361" : "#00050f"}}>{saved ? "Saved" : "Save"}</span>
+          <FaHeart className="icon" style={{color: saved ? "#df6361" : "#00050f"}}/>
         </div>
       </div>
       <div className="content">

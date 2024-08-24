@@ -38,7 +38,7 @@ function ProfilePage() {
             <div className="title">
               <h1>User Information</h1>
                 <Link to="/profile/update">
-                    <button>Update Profile</button>
+                    <button className='nav-links'>Update Profile</button>
                 </Link>
             </div>
             <div className="info">
@@ -61,11 +61,25 @@ function ProfilePage() {
                 <button className='nav-links'>Add new listing</button>
               </Link>
             </div>
-            <List/>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Await
+                resolve={data.postResponse}
+                errorElement={<p>Error loading posts!</p>}
+              >
+                {(postResponse) => <List posts={postResponse.data.userPosts} />}
+              </Await>
+            </Suspense>
             <div className="title">
               <h1>Saved Listings</h1>
             </div>
-            <List/>
+            <Suspense fallback={<p>Loading...</p>}>
+              <Await
+                resolve={data.postResponse}
+                errorElement={<p>Error loading posts!</p>}
+              >
+                {(postResponse) => <List posts={postResponse.data.savedPosts} />}
+              </Await>
+            </Suspense>
           </div>
         </div>
       </div>

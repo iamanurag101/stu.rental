@@ -55,12 +55,9 @@
             align-items: center;
             gap: 0.75rem;
             font-size: 1rem;
-
-            .icon {
-                &:hover {
-                    color: #df6361;
-                    cursor: pointer;
-                }
+            &:hover {
+                color: #df6361;
+                cursor: pointer;
             }
           }
     }
