@@ -1,12 +1,23 @@
+@import '../../responsive.scss';
+
 .profileUpdatePage {
     height: 100%;
     display: flex;
+
+    @include md {
+      flex-direction: column;
+    }
   
     .formContainer {
       flex:3;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @include md {
+        flex: 1;
+      }
+
       form {
         display: flex;
         flex-direction: column;
@@ -17,21 +28,18 @@
           flex-direction: column;
           gap: 5px;
   
-          label {
-          }
-  
           input {
             padding: 20px;
             border-radius: 5px;
-            border: 1px solid gray;
+            border: 1px solid #bcbfc2;
           }
         }
         button {
           padding: 20px;
           border-radius: 5px;
           border: none;
-          background-color: teal;
-          color: white;
+          background-color: #00050f;
+          color: #f8f9f0;
           font-weight: bold;
           cursor: pointer;
         }
@@ -40,15 +48,20 @@
   
     .sideContainer {
       flex: 2;
-      background-color: #fcf5f3;
       display: flex;
       flex-direction: column;
       gap: 20px;
       align-items: center;
       justify-content: center;
+
+      @include md {
+        flex: 1;
+      }
   
       .avatar{
         width: 50%;
+        height: 50%;
+        border-radius: 50%;
         object-fit: cover;
       }
     }
