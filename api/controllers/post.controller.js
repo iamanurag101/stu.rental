@@ -56,18 +56,10 @@ export const getPost = async (req, res) => {
               },
             },
           });
-          // First response attempt
-          return res.status(200).json({ ...post, isSaved: saved ? true : false });
-        } else {
-          // Token verification failed, respond here if needed
-          return res.status(401).json({ message: "Invalid token" });
+          res.status(200).json({ ...post, isSaved: saved ? true : false });
         }
       });
-      return; // Ensure no further code runs after jwt.verify
     }
-
-    // Only send this response if no token was found
-    return res.status(200).json({ ...post, isSaved: false });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get post" });

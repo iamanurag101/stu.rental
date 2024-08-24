@@ -81,49 +81,45 @@ export const updateUser = async (req, res) => {
     const tokenUserId = req.userId;
   
     console.log("Post ID:", postId);
-  console.log("Token User ID:", tokenUserId);
-
-  if (!postId || !tokenUserId) {
-    return res.status(400).json({ message: "Post ID and User ID are required." });
-  }
-
-  try {
-    // Check if the post is already saved
-    const savedPost = await prisma.savedPost.findUnique({
-      where: {
-        userId_postId: {
-          userId: tokenUserId,
-          postId: postId,
-        },
-      },
-    });
-
-    if (savedPost) {
-      // If already saved, remove it
-      await prisma.savedPost.delete({
+    console.log("Token User ID:", tokenUserId);
+  
+    if (!postId || !tokenUserId) {
+      return res.status(400).json({ message: "Post ID and User ID are required." });
+    }
+  
+    try {
+      const savedPost = await prisma.savedPost.findUnique({
         where: {
-          id: savedPost.id,
+          userId_postId: {
+            userId: tokenUserId,
+            postId: postId,
+          },
         },
       });
-      return res.status(200).json({ message: "Post removed from saved list" });
-    } else {
-      // If not saved, create a new record
-      await prisma.savedPost.create({
-        data: {
-          userId: tokenUserId,
-          postId: postId,
-        },
-      });
-      return res.status(200).json({ message: "Post saved" });
+  
+      if (savedPost) {
+        await prisma.savedPost.delete({
+          where: {
+            id: savedPost.id,
+          },
+        });
+        console.log(`Removed post ${postId} from saved list for user ${tokenUserId}`);
+        return res.status(200).json({ message: "Post removed from saved list" });
+      } else {
+        await prisma.savedPost.create({
+          data: {
+            userId: tokenUserId,
+            postId: postId,
+          },
+        });
+        console.log(`Saved post ${postId} for user ${tokenUserId}`);
+        return res.status(200).json({ message: "Post saved" });
+      }
+    } catch (err) {
+      console.error("Error in savePost:", err);
+      return res.status(500).json({ message: "Failed to save or remove post!" });
     }
-  } catch (err) {
-    console.log(err);
-    if (err.code === 'P2002') {
-      return res.status(400).json({ message: "Unique constraint violation: The post is already saved or similar issue." });
-    }
-    return res.status(500).json({ message: "Failed to save or remove post!" });
-  }
-};
+  };
 
   
   export const profilePosts = async (req, res) => {
