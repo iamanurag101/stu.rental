@@ -26,16 +26,16 @@ function Slider({ images }) {
       {imageIndex !== null && (
         <div className="fullSlider">
           <div className="arrow" onClick={() => changeSlide("left")}>
-            <FaArrowLeft className="icons"/>
+            <FaArrowLeft className="icons" />
           </div>
           <div className="imgContainer">
             <img src={images[imageIndex]} alt="" />
           </div>
           <div className="arrow" onClick={() => changeSlide("right")}>
-            <FaArrowRight className="icons"/>
+            <FaArrowRight className="icons" />
           </div>
           <div className="close" onClick={() => setImageIndex(null)}>
-            <FaX className="icons"/>
+            <FaX className="icons" />
           </div>
         </div>
       )}
@@ -43,13 +43,26 @@ function Slider({ images }) {
         <img src={images[0]} alt="" onClick={() => setImageIndex(0)} />
       </div>
       <div className="smallImages">
-        {images.slice(1).map((image, index) => (
-          <img
-            src={image}
-            alt=""
+        {images.slice(1, 4).map((image, index) => (
+          <div
+            className={`imageContainer ${index + 1 === 3 ? "blur" : ""}`}
             key={index}
-            onClick={() => setImageIndex(index + 1)}
-          />
+          >
+            {index + 1 === 3 && (
+              <>
+                <div
+                  className="blurOverlay"
+                  onClick={() => setImageIndex(3)}
+                ></div>
+                <span>+{images.length - 3}</span>
+              </>
+            )}
+            <img
+              src={image}
+              alt=""
+              onClick={() => setImageIndex(index + 1)}
+            />
+          </div>
         ))}
       </div>
     </div>
