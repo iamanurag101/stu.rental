@@ -13,7 +13,7 @@ function SinglePage() {
 
   const post = useLoaderData();  // Fetch post details dynamically
 
-  const [saved,setSaved] = useState(post.isSaved)
+  const [saved,setSaved] = useState(post.isSaved);
 
   const {currentUser} = useContext(AuthContext);
 
@@ -34,12 +34,14 @@ function SinglePage() {
   
   const [showFullDescription, setShowFullDescription] = useState(false);
 
-  const postDetail = post.postDetail || {};  // I decided to fallback to an empty object if postDetail is null
-  let description = postDetail.desc || 'No description available';  // I decided to drop a default message if description is missing
+  const postDetail = post.postDetail || {};  // Fallback to an empty object if postDetail is null
+  let description = postDetail.desc || 'No description available';  // Default message if description is missing
+  const isLongDescription = description.length > 200;
 
-  if (!showFullDescription) {
-    description = description.substring(0, 200) + '...';
-  }
+  // Truncate description if it's longer than 200 characters and `showFullDescription` is false
+  const truncatedDescription = !showFullDescription && isLongDescription
+    ? description.substring(0, 200) + '...'
+    : description;
 
   return (
     <div className="singlePage">
@@ -71,15 +73,17 @@ function SinglePage() {
             <div className="amenities">
               <h1 className="title">WiFi Availability</h1>
               <div className="amenity-wrapper">
-                <div className="amenity"><FaWifi />{post.utilities === "shared" ? "Yes" : post.utilities === "owner" ? "No" : "Not Sure"}</div>
+                <div className="amenity"><FaWifi />{postDetail.utilities === "shared" ? "Yes" : postDetail.utilities === "owner" ? "No" : "Not Sure"}</div>
               </div>
             </div>
             <div className="description">
               <h1 className="title">Description</h1>
-              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />
-              <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
-                {showFullDescription ? 'Read Less' : 'Read More'}
-              </span>
+              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncatedDescription) }} />
+              {isLongDescription && (
+                <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
+                  {showFullDescription ? 'Read Less' : 'Read More'}
+                </span>
+              )}
             </div>
           </div>
           <div className="author">
