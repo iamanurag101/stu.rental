@@ -267,5 +267,17 @@
             background-color: #d7c0a1;
             border-radius: 500px;
         }
+
+        .deleteButton {
+            width: 100%;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 1.25rem;
+            background-color: #df6361;
+            color: #5c141c;
+            font-weight: 700;
+            border: 1px solid #5c141c;
+            cursor: pointer;
+        }
     }
 }

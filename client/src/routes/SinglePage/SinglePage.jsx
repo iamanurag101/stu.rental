@@ -101,7 +101,7 @@ function SinglePage() {
           <Map items={[post]} />
         </div>
         {currentUser?.id === post.userId && (
-          <button className="deleteButton" onClick={handleDelete}>Delete Post</button>
+          <button className="deleteButton" onClick={handleDelete}>Delete Listing</button>
         )}
       </div>
     </div>
