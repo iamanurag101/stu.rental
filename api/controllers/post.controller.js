@@ -95,6 +95,7 @@ export const updatePost = async (req, res) => {
   }
 };
 
+
 export const deletePost = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -102,19 +103,32 @@ export const deletePost = async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
+      include: { postDetail: true, savedPosts: true },
     });
 
     if (post.userId !== tokenUserId) {
       return res.status(403).json({ message: "Not Authorized!" });
     }
 
+    // deleting post details
+    if (post.postDetail) {
+      await prisma.postDetail.delete({
+        where: { postId: id },
+      });
+    }
+
+    // deleting saved posts
+    await prisma.savedPost.deleteMany({
+      where: { postId: id },
+    });
+
+    // deleting the post
     await prisma.post.delete({
       where: { id },
     });
 
     res.status(200).json({ message: "Post deleted" });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Failed to delete post" });
+    res.status(500).json({ message: "Failed to delete post", error: err.message });
   }
 };
