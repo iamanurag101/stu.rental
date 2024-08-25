@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import ProfilePage from './routes/ProfilePage/ProfilePage';
-import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage.jsx';
+import ProfileUpdatePage from './routes/ProfileUpdatePage/ProfileUpdatePage.jsx';
 import Login from './routes/login/Login';
 import Register from './routes/Register/Register';
 import NewPostPage from './routes/NewPostPage/NewPostPage.jsx';

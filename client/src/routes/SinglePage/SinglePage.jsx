@@ -1,7 +1,7 @@
 import "./SinglePage.scss";
 import Slider from "../../components/Slider/Slider";
 import Map from "../../components/Map/Map";
-import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi, FaHospital, FaBus, FaTablets } from "react-icons/fa6";
+import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -10,14 +10,11 @@ import { AuthContext } from "../../Context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 
 function SinglePage() {
-
-  const post = useLoaderData();  // Fetch post details dynamically
-
-  const [saved,setSaved] = useState(post.isSaved);
-
-  const {currentUser} = useContext(AuthContext);
-
+  const post = useLoaderData();
+  const [saved, setSaved] = useState(post.isSaved);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   const handleSave = async () => {
     if (!currentUser) {
@@ -31,17 +28,23 @@ function SinglePage() {
       setSaved((prev) => !prev);
     }
   };
-  
-  const [showFullDescription, setShowFullDescription] = useState(false);
 
-  const postDetail = post.postDetail || {};  // Fallback to an empty object if postDetail is null
-  let description = postDetail.desc || 'No description available';  // Default message if description is missing
-  const isLongDescription = description.length > 200;
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      try {
+        await apiRequest.delete(`/posts/${post.id}`);
+        navigate("/"); // let us redirect to home page after deletion
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
-  // Truncate description if it's longer than 200 characters and `showFullDescription` is false
-  const truncatedDescription = !showFullDescription && isLongDescription
-    ? description.substring(0, 200) + '...'
-    : description;
+  const postDetail = post.postDetail || {};
+  let description = postDetail.desc || 'No description available';
+  if (!showFullDescription) {
+    description = description.substring(0, 200) + '...';
+  }
 
   return (
     <div className="singlePage">
@@ -54,8 +57,8 @@ function SinglePage() {
           <span className="title">{post.title}</span>
         </div>
         <div className="right" onClick={handleSave}>
-          <span style={{color: saved ? "#df6361" : "#00050f"}}>{saved ? "Saved" : "Save"}</span>
-          <FaHeart className="icon" style={{color: saved ? "#df6361" : "#00050f"}}/>
+          <span style={{ color: saved ? "#df6361" : "#00050f" }}>{saved ? "Saved" : "Save"}</span>
+          <FaHeart className="icon" style={{ color: saved ? "#df6361" : "#00050f" }} />
         </div>
       </div>
       <div className="content">
@@ -73,17 +76,15 @@ function SinglePage() {
             <div className="amenities">
               <h1 className="title">WiFi Availability</h1>
               <div className="amenity-wrapper">
-                <div className="amenity"><FaWifi />{post.utilities === "shared" ? "Yes" : post.utilities === "owner" ? "No" : "Not Sure"}</div>
+                <div className="amenity"><FaWifi />{post.amenities === "yes" ? "Yes" : post.amenities === "no" ? "No" : "Not Sure"}</div>
               </div>
             </div>
             <div className="description">
               <h1 className="title">Description</h1>
-              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncatedDescription) }} />
-              {isLongDescription && (
-                <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
-                  {showFullDescription ? 'Read Less' : 'Read More'}
-                </span>
-              )}
+              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />
+              <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
+                {showFullDescription ? 'Read Less' : 'Read More'}
+              </span>
             </div>
           </div>
           <div className="author">
@@ -99,6 +100,9 @@ function SinglePage() {
         <div className="mapContainer">
           <Map items={[post]} />
         </div>
+        {currentUser?.id === post.userId && (
+          <button className="deleteButton" onClick={handleDelete}>Delete Post</button>
+        )}
       </div>
     </div>
   );
