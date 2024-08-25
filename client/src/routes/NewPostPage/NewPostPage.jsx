@@ -36,7 +36,7 @@ function NewPostPage(){
                 },
                 postDetail: {
                   desc: value,
-                  utilities: inputs.utilities,
+                  amenities: inputs.amenities,
                 },
               });
               navigate("/"+res.data.id)
@@ -108,11 +108,11 @@ function NewPostPage(){
                         </div>
 
                         <div className="item">
-                            <label htmlFor="utilities">WiFi Available?</label>
-                            <select name="utilities">
-                                <option value="shared">Yes</option>
-                                <option value="owner">No</option>
-                                <option value="tenant">Not Sure</option>
+                            <label htmlFor="amenities">WiFi Available?</label>
+                            <select name="amenities">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                                <option value="notsure">Not Sure</option>
                             </select>
                         </div>
                     
