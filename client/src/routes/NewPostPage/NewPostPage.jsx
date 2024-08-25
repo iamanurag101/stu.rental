@@ -107,15 +107,20 @@ function NewPostPage(){
                         <div className="item">
                             <label htmlFor="utilities">Utilities Policy</label>
                             <select name="utilities">
+                                <option value="shared">Not Sure</option>
                                 <option value="owner">Owner is responsible</option>
                                 <option value="tenant">Tenant is responsible</option>
-                                <option value="shared">Not Sure</option>
                             </select>
                         </div>
                     
                         <button className="sendButton">Update</button>
                         {error && <span>error</span>}
                     </form>
+                    {/* Geolocation Link */}
+                    <div className="geolocationLink">
+                        <p>You can know the geolocation of your listing by using this third party service:</p>
+                        <a href="https://www.latlong.net" target="_blank" rel="noopener noreferrer">[Link] </a>
+                    </div>
                 </div>
             </div>
             <div className="sideContainer">
