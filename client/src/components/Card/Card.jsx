@@ -28,9 +28,6 @@ function Card({ item,isHome }) {
               <span>{item.bathroom} bathroom</span>
             </div>
           </div>
-          <div className="icon">
-            <FaHeart/>
-          </div>
         </div>
         <Link to={`/${item.id}`}><div className="nav-links">See Listing</div></Link>
       </div>
