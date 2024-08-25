@@ -5,6 +5,7 @@ import "react-quill/dist/quill.snow.css";
 import apiRequest from "../../lib/apiRequest";
 import UploadWidget from "../../components/UploadWidget.jsx/UploadWidget";
 import { useNavigate } from "react-router-dom";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
 function NewPostPage(){
     const [value,setValue] = useState("");
@@ -82,10 +83,12 @@ function NewPostPage(){
                         <div className="item">
                             <label htmlFor="latitude">Latitude</label>
                             <input id="latitude" name="latitude" type="text"/>
+                            <a href="https://www.latlong.net" target="_blank" rel="noopener noreferrer">Find Latitude/Longtitude <FaArrowUpRightFromSquare className="icons"/></a>
                         </div>
                         <div className="item">
                             <label htmlFor="longitude">Longitude</label>
                             <input id="longitude" name="longitude" type="text"/>
+                            <a href="https://www.latlong.net" target="_blank" rel="noopener noreferrer">Find Latitude/Longitude <FaArrowUpRightFromSquare className="icons"/></a>
                         </div>
                         <div className="item">
                             <label htmlFor="type">Type</label>
@@ -116,11 +119,6 @@ function NewPostPage(){
                         <button className="sendButton">Update</button>
                         {error && <span>error</span>}
                     </form>
-                    {/* Geolocation Link */}
-                    <div className="geolocationLink">
-                        <p>You can know the geolocation of your listing by using this third party service:</p>
-                        <a href="https://www.latlong.net" target="_blank" rel="noopener noreferrer">[Link] </a>
-                    </div>
                 </div>
             </div>
             <div className="sideContainer">
