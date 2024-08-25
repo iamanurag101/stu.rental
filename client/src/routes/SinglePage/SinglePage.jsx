@@ -42,9 +42,10 @@ function SinglePage() {
 
   const postDetail = post.postDetail || {};
   let description = postDetail.desc || 'No description available';
-  if (!showFullDescription) {
-    description = description.substring(0, 200) + '...';
-  }
+  const isLongDescription = description.length > 200;
+  const truncatedDescription = !showFullDescription && isLongDescription
+    ? description.substring(0, 200) + '...'
+    : description;
 
   return (
     <div className="singlePage">
@@ -81,10 +82,12 @@ function SinglePage() {
             </div>
             <div className="description">
               <h1 className="title">Description</h1>
-              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }} />
-              <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
-                {showFullDescription ? 'Read Less' : 'Read More'}
-              </span>
+              <div className="text" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(truncatedDescription) }} />
+              {isLongDescription && (
+                <span onClick={() => setShowFullDescription((prevState) => !prevState)} className="read-more">
+                  {showFullDescription ? 'Read Less' : 'Read More'}
+                </span>
+              )}
             </div>
           </div>
           <div className="author">
