@@ -108,11 +108,11 @@ function NewPostPage(){
                         </div>
 
                         <div className="item">
-                            <label htmlFor="utilities">Utilities Policy</label>
+                            <label htmlFor="utilities">WiFi Available?</label>
                             <select name="utilities">
-                                <option value="shared">Not Sure</option>
-                                <option value="owner">Owner is responsible</option>
-                                <option value="tenant">Tenant is responsible</option>
+                                <option value="shared">Yes</option>
+                                <option value="owner">No</option>
+                                <option value="tenant">Not Sure</option>
                             </select>
                         </div>
                     

@@ -69,9 +69,9 @@ function SinglePage() {
               <span className="size"><FaBath />{post.bathroom} {post.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
             </div>
             <div className="amenities">
-              <h1 className="title">Amenities</h1>
+              <h1 className="title">WiFi Availability</h1>
               <div className="amenity-wrapper">
-                <div className="amenity"><FaWifi />Wi-Fi</div>
+                <div className="amenity"><FaWifi />{post.utilities === "shared" ? "Yes" : post.utilities === "owner" ? "No" : "Not Sure"}</div>
               </div>
             </div>
             <div className="description">
