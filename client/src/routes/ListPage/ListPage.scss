@@ -70,7 +70,8 @@
 
         @include sm {
             flex-shrink: 0;
-            padding: 0;
+            padding-left: 0.125rem;
+            padding-right: 0;
         }
     }
 }
