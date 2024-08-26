@@ -37,9 +37,9 @@ const Navbar = () => {
           {open ? <FaX style={{ color: "#f8f9f0" }} /> : <FaBars />}
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <Link to='/' className='links'>Home</Link>
-          <Link to='/list' className='links'>Catalogue</Link>
-          <Link to='/about' className='links'>About Us</Link>
+          <Link to='/' className='links' onClick={() => setOpen(prev => !prev)}>Home</Link>
+          <Link to='/list' className='links' onClick={() => setOpen(prev => !prev)}>Catalogue</Link>
+          <Link to='/about' className='links' onClick={() => setOpen(prev => !prev)}>About Us</Link>
           {currentUser ? (
             <>
               <Link to='/profile' className='links'>Profile</Link>
