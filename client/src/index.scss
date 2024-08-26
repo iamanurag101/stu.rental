@@ -5,13 +5,13 @@
 }
 
 @font-face {
-    font-family: 'Overused Grotesk';
-    src: url(client\src\assets\fonts\OverusedGrotesk-VF.woff2) format('woff2'),
-         url(client\src\assets\fonts\OverusedGrotesk-VF.woff) format('woff'),
-         url(client\src\assets\fonts\OverusedGrotesk-VF.ttf) fromat('truetype');
-
-
-}
+    font-family: 'OverusedGrotesk';
+    src: url('./assets/fonts/OverusedGrotesk-VF.woff2') format('woff2'),
+         url('./assets/fonts/OverusedGrotesk-VF.woff') format('woff'),
+         url('./assets/fonts/OverusedGrotesk-VF.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 a {
     text-decoration: none;
