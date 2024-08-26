@@ -21,8 +21,8 @@ const AboutPage = () => {
                 <div className="about-dev-container">
                     <div className="shadow"></div>
                     <div className="about-dev">
-                        <div className="background-image" style={{ backgroundImage: 'url("./src/assets/images/Code.jpg")' }}></div>
-                        <img className="profile-image" src="./src/assets/images/Anurag.jpg" alt="Anurag Dey" />
+                        <div className="background-image" style={{ backgroundImage: 'url("./Code.jpg")' }}></div>
+                        <img className="profile-image" src="./Anurag.jpg" alt="Anurag Dey" />
                         <div className="content">
                             <div className="title">Anurag Dey</div>
                             <div className="description">JU '26</div>
@@ -48,8 +48,8 @@ const AboutPage = () => {
                 <div className="about-dev-container">
                     <div className="shadow"></div>
                     <div className="about-dev">
-                        <div className="background-image" style={{ backgroundImage: 'url("./src/assets/images/Code.jpg")' }}></div>
-                        <img className="profile-image" src="./src/assets/images/Ankan.jpg" alt="Ankan Das" />
+                        <div className="background-image" style={{ backgroundImage: 'url("./Code.jpg")' }}></div>
+                        <img className="profile-image" src="./Ankan.jpg" alt="Ankan Das" />
                         <div className="content">
                             <div className="title">Ankan Das</div>
                             <div className="description">JU '26</div>
