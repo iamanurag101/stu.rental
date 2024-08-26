@@ -3,13 +3,13 @@ import { Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { Link } from 'react-router-dom';
 import './Pin.scss';
-import { FaIndianRupeeSign, FaHouse } from 'react-icons/fa6';
+import { FaIndianRupeeSign, FaLocationDot } from 'react-icons/fa6';
 import ReactDOMServer from 'react-dom/server'; // For rendering React components to HTML
 
 // Convert React component to HTML
 const HouseIcon = () => (
-  <div style={{ fontSize: '24px', color: '#80471c' }}>
-    <FaHouse/>
+  <div style={{ fontSize: '32px', color: '#80471c' }}>
+    <FaLocationDot/>
   </div>
 );
 
