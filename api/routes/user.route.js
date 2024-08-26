@@ -16,6 +16,6 @@ router.get("/search/:id", verifyToken, getUser);
 router.put("/:id", verifyToken, updateUser);
 router.delete("/:id", verifyToken, deleteUser);
 router.post("/save", verifyToken, savePost);
-router.get("/profilePosts", verifyToken, profilePosts);
+router.get("/profilePosts", profilePosts);
 
 export default router;
