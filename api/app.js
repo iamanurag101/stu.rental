@@ -17,6 +17,10 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/test", testRoute);
 
+app.get('/', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+  });
+
 const PORT = process.env.PORT || 8800;
 
 app.listen(PORT, () => {
