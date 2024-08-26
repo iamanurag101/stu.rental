@@ -116,7 +116,7 @@ function NewPostPage(){
                             </select>
                         </div>
                     
-                        <button className="sendButton">Update</button>
+                        <button className="sendButton">Add Listing</button>
                         {error && <span>error</span>}
                     </form>
                 </div>
