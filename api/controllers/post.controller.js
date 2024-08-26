@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 export const getPosts = async (req, res) => {
   const query = req.query;
-
   try {
     const posts = await prisma.post.findMany({
       where: {
@@ -17,7 +16,6 @@ export const getPosts = async (req, res) => {
         },
       },
     });
-
     res.status(200).json(posts);
   } catch (err) {
     console.log(err);
@@ -43,7 +41,6 @@ export const getPost = async (req, res) => {
     });
 
     const token = req.cookies?.token;
-
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
         if (!err) {
@@ -57,9 +54,9 @@ export const getPost = async (req, res) => {
           });
           return res.status(200).json({ ...post, isSaved: saved ? true : false });
         }
+        res.status(500).json({ message: "Failed to verify token" });
       });
     } else {
-      // Ensure response is sent if no token is present
       return res.status(200).json({ ...post, isSaved: false });
     }
   } catch (err) {
@@ -90,14 +87,9 @@ export const addPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  try {
-    res.status(200).json();
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Failed to update posts" });
-  }
+  // Implement update logic if needed
+  res.status(200).json();
 };
-
 
 export const deletePost = async (req, res) => {
   const id = req.params.id;
@@ -113,19 +105,16 @@ export const deletePost = async (req, res) => {
       return res.status(403).json({ message: "Not Authorized!" });
     }
 
-    // deleting post details
     if (post.postDetail) {
       await prisma.postDetail.delete({
         where: { postId: id },
       });
     }
 
-    // deleting saved posts
     await prisma.savedPost.deleteMany({
       where: { postId: id },
     });
 
-    // deleting the post
     await prisma.post.delete({
       where: { id },
     });
