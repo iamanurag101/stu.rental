@@ -16,6 +16,20 @@ apiRequest.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
+// Handle responses and errors
+apiRequest.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      // Handle unauthorized errors
+      console.error("Unauthorized access. Redirecting to login...");
+      // Example: Redirect to login page or show a message
+      // window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Method to delete a post
 export const deletePost = async (postId) => {
   try {
