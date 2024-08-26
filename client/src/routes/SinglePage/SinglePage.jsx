@@ -77,7 +77,7 @@ function SinglePage() {
             <div className="amenities">
               <h1 className="title">WiFi Availability</h1>
               <div className="amenity-wrapper">
-                <div className="amenity"><FaWifi />{post.amenities === "yes" ? "Yes" : post.amenities === "no" ? "No" : "Not Sure"}</div>
+                <div className="amenity"><FaWifi />{postDetail.amenities === "yes" ? "Yes" : postDetail.amenities === "no" ? "No" : "Not Sure"}</div>
               </div>
             </div>
             <div className="description">
