@@ -5,7 +5,18 @@ const apiRequest = axios.create({
   withCredentials: true,
 });
 
-// wrote this method seperately for atomicity
+// Automatically attach token to every request if available
+apiRequest.interceptors.request.use((config) => {
+  const token = JSON.parse(localStorage.getItem('user'))?.token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+// Method to delete a post
 export const deletePost = async (postId) => {
   try {
     const response = await apiRequest.delete(`/posts/${postId}`);
