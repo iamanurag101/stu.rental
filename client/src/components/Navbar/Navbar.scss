@@ -227,6 +227,10 @@ nav {
             gap: 1.5rem;
             z-index: 1000;
 
+            .links {
+              font-size: 1.5rem;
+            }
+
             &.active {
                 right: 0;
             }

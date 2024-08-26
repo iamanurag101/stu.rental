@@ -36,11 +36,11 @@ const Navbar = () => {
           {open ? <FaX style={{color: "#f8f9f0",}}/> : <FaBars/>}
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <a href='/'>Home</a>
-          <a href='/list'>Catalogue</a>
-          <a href='/about'>About Us</a>
-          <a href='/login'>Sign In</a>
-          <a href='/register'>Sign Up</a>
+          <a href='/' className='links'>Home</a>
+          <a href='/list' className='links'>Catalogue</a>
+          <a href='/about' className='links'>About Us</a>
+          <a href='/login' className='links'>Sign In</a>
+          <a href='/register' className='links'>Sign Up</a>
         </div>
       </div>
     </nav>
