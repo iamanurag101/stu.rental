@@ -36,7 +36,7 @@ export const getPost = async (req, res) => {
           select: {
             username: true,
             avatar: true,
-            email: true
+            email: true,
           },
         },
       },
@@ -55,9 +55,12 @@ export const getPost = async (req, res) => {
               },
             },
           });
-          res.status(200).json({ ...post, isSaved: saved ? true : false });
+          return res.status(200).json({ ...post, isSaved: saved ? true : false });
         }
       });
+    } else {
+      // Ensure response is sent if no token is present
+      return res.status(200).json({ ...post, isSaved: false });
     }
   } catch (err) {
     console.log(err);
