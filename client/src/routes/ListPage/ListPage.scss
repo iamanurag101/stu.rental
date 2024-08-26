@@ -20,10 +20,6 @@
             overflow-y: auto;
             padding-bottom: 5rem;
 
-            @include sm {
-                padding-bottom: none;
-            }
-
             .breadcrumbs {
                 display: flex;
                 align-items: center;
