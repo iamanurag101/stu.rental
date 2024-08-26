@@ -5,6 +5,7 @@
     height: 100%;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+    flex-wrap: wrap;
 
     .listContainer {
         flex: 3;
@@ -18,6 +19,10 @@
             gap: 1.5rem;
             overflow-y: auto;
             padding-bottom: 5rem;
+
+            @include sm {
+                padding-bottom: none;
+            }
 
             .breadcrumbs {
                 display: flex;
@@ -65,6 +70,11 @@
     .mapContainer {
         flex: 2;
         padding: 0.5rem;
+        min-height: 200px;
+
+        @include sm {
+            flex-shrink: 0;
+        }
     }
 }
 
