@@ -5,15 +5,14 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
 const Navbar = () => {
-  const[open,setOpen] = useState(false);
-
-  const {currentUser} = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <nav>
       <div className="left">
         <a href='/'>
-          <img src="/stu.rental.svg"></img>
+          <img src="/stu.rental.svg" alt="Logo" />
         </a>
         <div className='links'>
           <a href='/' className='text-links'>Home</a>
@@ -22,29 +21,39 @@ const Navbar = () => {
         </div>   
       </div>
       <div className="right">
-        {currentUser ? 
-        (<div className='user'>
-          <img src={currentUser.avatar || './avatar.jpg'} />
-          <span>{currentUser.username}</span>
-          <Link to="/profile" className='nav-links'>Profile</Link>
-        </div>) : 
-        (<>
-          <a href='/login' className='text-links'>Sign In</a>
-          <a href='/register' className='nav-links'>Sign Up</a>
-        </>)}
-        <div className="menu-icon" onClick={() => setOpen((prev) => !prev)}>
-          {open ? <FaX style={{color: "#f8f9f0",}}/> : <FaBars/>}
+        {currentUser ? (
+          <div className='user'>
+            <img src={currentUser.avatar || './avatar.jpg'} alt="User Avatar" />
+            <span>{currentUser.username}</span>
+            <Link to="/profile" className='nav-links'>Profile</Link>
+          </div>
+        ) : (
+          <>
+            <Link to='/login' className='text-links'>Sign In</Link>
+            <Link to='/register' className='nav-links'>Sign Up</Link>
+          </>
+        )}
+        <div className="menu-icon" onClick={() => setOpen(prev => !prev)}>
+          {open ? <FaX style={{ color: "#f8f9f0" }} /> : <FaBars />}
         </div>
         <div className={open ? "menu active" : "menu"}>
-          <a href='/' className='links'>Home</a>
-          <a href='/list' className='links'>Catalogue</a>
-          <a href='/about' className='links'>About Us</a>
-          <a href='/login' className='links'>Sign In</a>
-          <a href='/register' className='links'>Sign Up</a>
+          <Link to='/' className='links'>Home</Link>
+          <Link to='/list' className='links'>Catalogue</Link>
+          <Link to='/about' className='links'>About Us</Link>
+          {currentUser ? (
+            <>
+              <Link to='/profile' className='links'>Profile</Link>
+            </>
+          ) : (
+            <>
+              <Link to='/login' className='links'>Sign In</Link>
+              <Link to='/register' className='links'>Sign Up</Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
