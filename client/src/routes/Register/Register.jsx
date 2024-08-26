@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import apiRequest from "../../lib/apiRequest";
 import HeroImg from "../../assets/images/HeroImg.jpg";
-import logo from "../../logo/stu.rental.svg";
+import logo from "/stu.rental.svg";
 
 function Register() {
   const [error, setError] = useState("");

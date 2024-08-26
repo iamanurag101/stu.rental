@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav>
       <div className="left">
         <a href='/'>
-          <img src="/src/logo/stu.rental.svg"></img>
+          <img src="/stu.rental.svg"></img>
         </a>
         <div className='links'>
           <a href='/' className='text-links'>Home</a>

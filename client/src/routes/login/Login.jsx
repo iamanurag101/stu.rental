@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../Context/AuthContext";
 import HeroImg from "../../assets/images/HeroImg2.jpg";
-import logo from "../../logo/stu.rental.svg";
+import logo from "/stu.rental.svg";
 
 function Login() {
   const [error, setError] = useState("");
