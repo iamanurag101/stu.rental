@@ -7,6 +7,10 @@
     padding-right: 1.25rem;
     flex-wrap: wrap;
 
+    @include sm {
+        padding-right: 0.125rem;
+    }
+
     .listContainer {
         flex: 3;
         height: 100%;
