@@ -4,7 +4,7 @@ import apiRequest from "./apiRequest";
 
 export const singlePageLoader = async ({ request, params }) => {
   try {
-    const res = await apiRequest(`/posts/${params.id}`);
+    const res = await apiRequest(`posts/${params.id}`);
     return res.data;
   } catch (error) {
     console.error("Error fetching single post:", error);
@@ -14,7 +14,7 @@ export const singlePageLoader = async ({ request, params }) => {
 
 export const listPageLoader = async ({ request }) => {
   const query = request.url.split("?")[1];
-  const url = query ? `/posts?${query}` : "/posts";
+  const url = query ? `posts?${query}` : "posts";
   console.log("Fetching posts from URL:", url); // Debugging log
 
   try {
