@@ -39,7 +39,7 @@
   <div style="height: 20px;"></div> <!-- Spacer div -->
 
   <h2>Overview</h2>
-  <p>This is a full-stack student rental application website built using technologies:</p>
+  <p>This is a full-stack student rental information website built using technologies:</p>
   <ul>
     <li><strong>Backend:</strong> Express, Node.js and Vanilla Javascript</li>
     <li><strong>Frontend:</strong> React.js, Leaflet.js and SCSS</li>
@@ -68,7 +68,7 @@
 
   <h2>Features</h2>
   <ul>
-    <li><strong>Search Functionality:</strong> Users can search for rental listings by location and price range.</li>
+    <li><strong>Search Functionality:</strong> Users can search for rental listings by gender, location and price range.</li>
     <li><strong>OpenStreetMaps API Integration:</strong> Interactive maps display listing locations for easy navigation.</li>
     <li><strong>Property Listings:</strong> Detailed information and image sliders for each property.</li>
     <li><strong>User Authentication:</strong> Secure login and registration with JWT tokens.</li>
