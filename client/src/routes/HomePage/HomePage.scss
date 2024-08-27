@@ -2,7 +2,7 @@
 
 .homePage {
     height: 100%;
-    overflow: auto;
+    // overflow: auto;
 
     .textContainer {
         .wrapper {
@@ -22,14 +22,6 @@
                 }
             }
         }
-    }
-    &::-webkit-scrollbar {
-        width: 4px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-        background-color: #d7c0a1;
-        border-radius: 500px;
     }
 
     .text-content {
