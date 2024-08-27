@@ -42,12 +42,12 @@ const Navbar = () => {
           <Link to='/about' className='links' onClick={() => setOpen(prev => !prev)}>About Us</Link>
           {currentUser ? (
             <>
-              <Link to='/profile' className='links'>Profile</Link>
+              <Link to='/profile' className='links' onClick={() => setOpen(prev => !prev)}>Profile</Link>
             </>
           ) : (
             <>
-              <Link to='/login' className='links'>Sign In</Link>
-              <Link to='/register' className='links'>Sign Up</Link>
+              <Link to='/login' className='links' onClick={() => setOpen(prev => !prev)}>Sign In</Link>
+              <Link to='/register' className='links' onClick={() => setOpen(prev => !prev)}>Sign Up</Link>
             </>
           )}
         </div>
