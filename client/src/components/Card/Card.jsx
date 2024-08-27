@@ -21,11 +21,11 @@ function Card({ item,isHome }) {
           <div className="features">
             <div className="feature">
               <FaBed/>
-              <span>{item.bedroom} bedroom</span>
+              <span>{item.bedroom} {item.bedroom === 1 ? 'Bedroom' : 'Bedrooms'}</span>
             </div>
             <div className="feature">
               <FaBath/>
-              <span>{item.bathroom} bathroom</span>
+              <span>{item.bathroom} {item.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
             </div>
           </div>
         </div>

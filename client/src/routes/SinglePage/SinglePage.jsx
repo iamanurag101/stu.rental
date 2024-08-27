@@ -71,7 +71,7 @@ function SinglePage() {
               <span className="rent"><FaIndianRupeeSign className="icons" />{post.price}/<span className="type">month</span></span>
             </div>
             <div className="sizes">
-              <span className="size"><FaBed />{post.bedRooms} {post.bedRooms === 1 ? 'Bedroom' : 'Bedrooms'}</span>
+              <span className="size"><FaBed />{post.bedroom} {post.bedroom === 1 ? 'Bedroom' : 'Bedrooms'}</span>
               <span className="size"><FaBath />{post.bathroom} {post.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
             </div>
             <div className="amenities">
