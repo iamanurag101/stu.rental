@@ -1,7 +1,7 @@
 import "./SinglePage.scss";
 import Slider from "../../components/Slider/Slider";
 import Map from "../../components/Map/Map";
-import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi } from "react-icons/fa6";
+import { FaAngleRight, FaBed, FaBath, FaExpand, FaHeart, FaIndianRupeeSign, FaWifi, FaPerson, FaPersonDress } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { useLoaderData } from "react-router-dom";
@@ -73,6 +73,7 @@ function SinglePage() {
             <div className="sizes">
               <span className="size"><FaBed />{post.bedroom} {post.bedroom === 1 ? 'Bedroom' : 'Bedrooms'}</span>
               <span className="size"><FaBath />{post.bathroom} {post.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
+              <span className="size">{post.type === "men" ? <FaPerson/> : <FaPersonDress/>} For {post.type}</span>
             </div>
             <div className="amenities">
               <h1 className="title">WiFi Availability</h1>

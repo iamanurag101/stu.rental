@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Card.scss";
-import { FaHeart, FaLocationDot, FaBed, FaBath, FaIndianRupeeSign } from 'react-icons/fa6';
+import { FaLocationDot, FaBed, FaBath, FaIndianRupeeSign, FaPerson, FaPersonDress } from 'react-icons/fa6';
 
 function Card({ item,isHome }) {
   return (
@@ -26,6 +26,10 @@ function Card({ item,isHome }) {
             <div className="feature">
               <FaBath/>
               <span>{item.bathroom} {item.bathroom === 1 ? 'Bathroom' : 'Bathrooms'}</span>
+            </div>
+            <div className="feature">
+              {item.type === "men" ? <FaPerson/> : <FaPersonDress/>}
+              <span>For {item.type === "men" ? "Men" : "Women"}</span>
             </div>
           </div>
         </div>
