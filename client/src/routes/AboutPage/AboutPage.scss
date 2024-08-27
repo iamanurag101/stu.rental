@@ -5,8 +5,8 @@
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  height: 100vh;
-  overflow-y: auto; 
+  height: 100%;
+  overflow: auto; 
 
   .top {
     display: flex;
