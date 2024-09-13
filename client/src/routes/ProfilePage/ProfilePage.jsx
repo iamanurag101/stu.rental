@@ -10,16 +10,16 @@ function ProfilePage() {
   const data = useLoaderData();
 
   const { updateUser, currentUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
-  /** Below code is subject to useEffect */
+  // Redirect to login if not authenticated
   useEffect(() => {
     if (!currentUser) {
       navigate("/login");
     }
   }, [currentUser, navigate]);
 
+  // Handle logout
   const handleLogout = async () => {
     try {
       await apiRequest.post("/auth/logout");
@@ -35,11 +35,12 @@ function ProfilePage() {
       <div className='profilePage'>
         <div className="details">
           <div className="wrapper">
+            {/* User Information */}
             <div className="title">
               <h1>User Information</h1>
-                <Link to="/profile/update">
-                    <button className='nav-links'>Update Profile</button>
-                </Link>
+              <Link to="/profile/update">
+                <button className='nav-links'>Update Profile</button>
+              </Link>
             </div>
             <div className="info">
               <span className='image'>
@@ -55,6 +56,8 @@ function ProfilePage() {
               </div>
               <button onClick={handleLogout} className='nav-links'>Logout</button>
             </div>
+
+            {/* My Listings Section */}
             <div className="title">
               <h1>My Listings</h1>
               <Link to="/add">
@@ -66,9 +69,17 @@ function ProfilePage() {
                 resolve={data.postResponse}
                 errorElement={<p>Error loading posts!</p>}
               >
-                {(postResponse) => <List posts={postResponse.data.userPosts} />}
+                {(postResponse) => (
+                  postResponse.data.userPosts && postResponse.data.userPosts.length > 0 ? (
+                    <List posts={postResponse.data.userPosts} />
+                  ) : (
+                    <p className='message'>No listings found. Start creating your own listings to share with others!</p>
+                  )
+                )}
               </Await>
             </Suspense>
+
+            {/* Saved Listings Section */}
             <div className="title">
               <h1>Saved Listings</h1>
             </div>
@@ -77,7 +88,13 @@ function ProfilePage() {
                 resolve={data.postResponse}
                 errorElement={<p>Error loading posts!</p>}
               >
-                {(postResponse) => <List posts={postResponse.data.savedPosts} />}
+                {(postResponse) => (
+                  postResponse.data.savedPosts && postResponse.data.savedPosts.length > 0 ? (
+                    <List posts={postResponse.data.savedPosts} />
+                  ) : (
+                    <p className='message'>You haven’t saved any listings yet. Explore and save your favorite posts to keep track of them!</p>
+                  )
+                )}
               </Await>
             </Suspense>
           </div>

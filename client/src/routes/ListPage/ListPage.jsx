@@ -29,13 +29,17 @@ function ListPage({ isHome }) {
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
-              {(postResponse) => (
-                <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
-                  {postResponse.data.slice(0, isHome ? 3 : postResponse.data.length).map(item => (
-                    <Card key={item.id} item={item} isHome={isHome} />
-                  ))}
-                </div>
-              )}
+              {(postResponse) =>
+                postResponse.data.length > 0 ? (
+                  <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
+                    {postResponse.data.slice(0, isHome ? 3 : postResponse.data.length).map(item => (
+                      <Card key={item.id} item={item} isHome={isHome} />
+                    ))}
+                  </div>
+                ) : (
+                  <p>No listings found matching your search criteria.</p>
+                )
+              }
             </Await>
           </Suspense>
         </div>
