@@ -2,14 +2,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import prisma from "../lib/prisma.js";
 
+const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS);
+
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
     //hash the pass
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    console.log(hashedPassword);
+    const salt = await bcrypt.genSalt(SALT_ROUNDS);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     //create new user and save to db
     const newUser = await prisma.user.create({
