@@ -78,7 +78,7 @@
   <div style="height: 20px;"></div> <!-- Spacer div -->
 
   <div class="footer">
-    <p><strong>&copy; 2024 Stu-Rental</strong></p>
+    <p><strong>&copy; 2025 Stu-Rental</strong></p>
   </div>
 </body>
 </html>
