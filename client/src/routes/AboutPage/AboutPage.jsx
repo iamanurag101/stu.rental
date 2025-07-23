@@ -1,6 +1,6 @@
 import React from 'react';
 import './AboutPage.scss';
-import { FaGithub, FaLinkedin } from 'react-icons/fa6';
+import { FaGithub, FaGlobe, FaLinkedin } from 'react-icons/fa6';
 
 const AboutPage = () => {
   return (
@@ -41,6 +41,13 @@ const AboutPage = () => {
                                 rel="noopener noreferrer"
                             >
                                 <FaLinkedin className="icons" />
+                            </a>
+                            <a
+                                href="https://www.byanurag.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <FaGlobe className="icons" />
                             </a>
                         </div>
                     </div>
