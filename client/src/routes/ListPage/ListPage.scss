@@ -5,15 +5,22 @@
     height: 100vh;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-    flex-wrap: wrap;
 
     @include sm {
-        padding-right: 0.125rem;
+        flex-direction: column;
     }
 
     .listContainer {
         flex: 3;
         height: 100%;
+
+        @include sm {
+            padding-bottom: 4rem;
+            
+            ::-webkit-scrollbar {
+                display: none;
+            }
+        }
 
         .wrapper {
             height: 100vh;
@@ -22,6 +29,11 @@
             flex-direction: column;
             gap: 1.5rem;
             overflow-y: auto;
+
+            @include sm {
+                width: 100%;
+                padding-right: 0rem;
+            }
 
             .breadcrumbs {
                 display: flex;
@@ -70,12 +82,6 @@
         flex: 2;
         padding: 0.5rem;
         min-height: 200px;
-
-        @include sm {
-            flex-shrink: 0;
-            padding-left: 0.125rem;
-            padding-right: 0;
-        }
     }
 }
 
