@@ -24,11 +24,11 @@
   <div class="images">
     <div class="image-container">
       <p class="image-label">Homepage:</p>
-      <img src="https://drive.google.com/uc?export=view&id=1rLczZVcC8gZHsfyjWm0dPYzF_WLVnD-I" alt="Homepage">
+      <img width="1918" height="906" alt="Home Page" src="https://github.com/user-attachments/assets/4f6d1a4a-396d-4793-a1b0-98ec47a509ee" />
     </div>
     <div class="image-container">
       <p class="image-label">Catalogue Page:</p>
-      <img src="https://drive.google.com/uc?export=view&id=1Xsi23iAkVeik_L4coc5SypgaYLZm5sZG" alt="Listings Page">
+      <img width="1919" height="906" alt="Listings Page" src="https://github.com/user-attachments/assets/32cae58a-b600-4ba7-9846-1f65b66a4cc3" />
     </div>
     <div class="image-container">
       <p class="image-label">Add Listings:</p>
@@ -78,7 +78,7 @@
   <div style="height: 20px;"></div> <!-- Spacer div -->
 
   <div class="footer">
-    <p><strong>&copy; 2024 Stu-Rental</strong></p>
+    <p><strong>&copy; 2025 Stu-Rental</strong></p>
   </div>
 </body>
 </html>
