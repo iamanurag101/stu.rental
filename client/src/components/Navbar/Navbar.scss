@@ -102,16 +102,17 @@ nav {
                 display: inline-block;
                 overflow: hidden;
                 padding: 0.5rem 1.25rem;
-                border: solid 1.5px #d7c0a1;
+                border: solid 1.5px #2e2923;
                 border-radius: 1000px;
                 cursor: pointer;
+                color: #f8f9f0;
     
                 @include sm {
                     display: none;
                 }
               
                 &:hover {
-                  color: #f8f9f0;
+                  color: #2e2923;
                   font-weight: 500;
                 }
               
@@ -165,16 +166,19 @@ nav {
             display: inline-block;
             overflow: hidden;
             padding: 0.5rem 1.25rem;
-            border: solid 1.5px #d7c0a1;
+            border: solid 1.5px #2e2923;
             border-radius: 1000px;
             cursor: pointer;
+            background-color: #2e2923;
+            color: #f8f9f0;
 
             @include sm {
                 display: none;
             }
           
             &:hover {
-              color: #f8f9f0;
+              color: #2e2923;
+              border: solid 1.5px #d7c0a1;
               font-weight: 500;
             }
           
