@@ -13,6 +13,7 @@ import Register from './routes/Register/Register';
 import NewPostPage from './routes/NewPostPage/NewPostPage.jsx';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders.js';
 import AboutPage from './routes/AboutPage/AboutPage.jsx';
+import UpdatePostPage from './routes/UpdatePostPage/UpdatePostPage.jsx';
 
 function App() {
 
@@ -67,6 +68,11 @@ function App() {
           path:"/add",
           element:<NewPostPage/>
         },
+        {
+          path: "/:id/update",
+          element: <UpdatePostPage/>,
+          loader: singlePageLoader
+        }
       ],
     },
   ]);

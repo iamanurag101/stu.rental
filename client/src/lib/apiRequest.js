@@ -18,18 +18,31 @@ apiRequest.interceptors.request.use((config) => {
 });
 
 // Handle responses and errors
-apiRequest.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response && error.response.status === 401) {
-      // Handle unauthorized errors
-      console.error("Unauthorized access. Redirecting to login...");
-      // Example: Redirect to login page or show a message
-      // window.location.href = "/login";
+apiRequest.interceptors.request.use((config) => {
+  try {
+    const storedUser = localStorage.getItem('user');
+    const token = storedUser ? JSON.parse(storedUser)?.token : null;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return Promise.reject(error);
+  } catch (err) {
+    console.error("Failed to parse token from localStorage", err);
   }
-);
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+// Method to update a post
+export const updatePost = async (postId, postData) => {
+  try {
+    const response = await apiRequest.put(`/posts/${postId}`, postData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating post:", error);
+    throw error;
+  }
+};
 
 // Method to delete a post
 export const deletePost = async (postId) => {

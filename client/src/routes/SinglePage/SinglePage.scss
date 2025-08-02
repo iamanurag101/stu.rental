@@ -292,15 +292,31 @@
             border-radius: 500px;
         }
 
+        .updateButton {
+            width: 100%;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 1.25rem;
+            background-color: #2e2923;
+            border: none;
+            color: #f8f9f0;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
         .deleteButton {
             width: 100%;
             margin-top: 0.75rem;
             padding: 0.5rem;
             border-radius: 1.25rem;
             background-color: #df6361;
+            border: none;
             color: #f8f9f0;
             font-weight: 700;
             cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 1rem;
         }
     }
 }

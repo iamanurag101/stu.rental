@@ -87,8 +87,56 @@ export const addPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  // Implement update logic if needed
-  res.status(200).json();
+  const postId = req.params.id;
+  const body = req.body;
+  const tokenUserId = req.userId;
+
+  try {
+    const existingPost = await prisma.post.findUnique({
+      where: { id: postId },
+      include: { postDetail: true },
+    });
+
+    if (!existingPost) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    if (existingPost.userId !== tokenUserId) {
+      return res.status(403).json({ message: "Not Authorized!" });
+    }
+
+    // Update the post table
+    await prisma.post.update({
+      where: { id: postId },
+      data: {
+        title: body.postData.title,
+        price: body.postData.price,
+        address: body.postData.address,
+        city: body.postData.city,
+        bedroom: body.postData.bedroom,
+        bathroom: body.postData.bathroom,
+        type: body.postData.type,
+        property: body.postData.property,
+        latitude: body.postData.latitude,
+        longitude: body.postData.longitude,
+        images: body.postData.images,
+      },
+    });
+
+    // Update post details
+    await prisma.postDetail.update({
+      where: { postId },
+      data: {
+        desc: body.postDetail.desc,
+        amenities: body.postDetail.amenities,
+      },
+    });
+
+    res.status(200).json({ message: "Post updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update post", error: err.message });
+  }
 };
 
 export const deletePost = async (req, res) => {
