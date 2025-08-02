@@ -8,14 +8,17 @@ import userRoute from "./routes/user.route.js"
 
 const app = express();
 
-const allowedOrigins = process.env.CLIENT_URLS?.split(',') || [];
+const allowedOrigins = [
+  process.env.CLIENT_URL_MAIN,
+  process.env.CLIENT_URL_ANURAG,
+];
 
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow request
+      callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS")); // Block request
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true
