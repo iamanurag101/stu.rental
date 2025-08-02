@@ -31,7 +31,7 @@ const Map = ({ items }) => {
   return locationLoaded ? (
     <MapContainer
       center={initialCenter}
-      zoom={13}
+      zoom={9}
       scrollWheelZoom={false}
       className="map"
     >
