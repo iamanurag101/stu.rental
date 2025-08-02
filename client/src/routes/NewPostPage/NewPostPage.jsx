@@ -125,7 +125,9 @@ function NewPostPage(){
             <h2 style={{fontWeight: 500}}>Upload Pictures</h2>
             <div className="img-wrapper">
                 {images.map((image, index) => (
-                    <img src={image} key={index} alt="" />
+                    <div className="img-preview">
+                        <img src={image} key={index} alt="" />
+                    </div>
                 ))}
                 <UploadWidget uwConfig={{
                     multiple:true,
