@@ -5,42 +5,42 @@ import "leaflet/dist/leaflet.css";
 import Pin from '../Pin/Pin';
 
 const Map = ({ items }) => {
-  const [mapCenter, setMapCenter] = useState([22.5744, 88.3629]); // default fallback (Kolkata)
-  const [locationLoaded, setLocationLoaded] = useState(false);
+  const [mapCenter, setMapCenter] = useState([22.5744, 88.3629]); // fallback center
+  const [locationLoaded, setLocationLoaded] = useState(items.length === 1); // skip loading if single item
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    // Only try to get geolocation if multiple posts
+    if (items.length > 1 && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        position => {
+        (position) => {
           setMapCenter([position.coords.latitude, position.coords.longitude]);
           setLocationLoaded(true);
         },
         () => {
-          setLocationLoaded(true); // Load map with fallback center
+          setLocationLoaded(true); // failed, fallback
         }
       );
-    } else {
-      setLocationLoaded(true); // No geolocation support
     }
-  }, []);
+  }, [items]);
 
-  const initialCenter = items.length === 1
-    ? [items[0].latitude, items[0].longitude]
-    : mapCenter;
+  const initialCenter =
+    items.length === 1
+      ? [items[0].latitude, items[0].longitude]
+      : mapCenter;
 
   return locationLoaded ? (
     <MapContainer
       center={initialCenter}
-      zoom={8}
+      zoom={13}
       scrollWheelZoom={false}
-      className='map'
+      className="map"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {items.map(item => (
-        <Pin item={item} key={item.id} />
+      {items.map((item) => (
+        <Pin key={item.id} item={item} />
       ))}
     </MapContainer>
   ) : (
