@@ -75,6 +75,32 @@
             background-color: #d7c0a1;
             border-radius: 500px;
         }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 2rem;
+
+            button {
+                padding: 6px 12px;
+                border: none;
+                background-color: #2e2923;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:disabled {
+                    background-color: #d7c0a1;
+                    cursor: not-allowed;
+                }
+            }
+
+            span {
+                font-size: 14px;
+            }
+}
+
     }
 
     .mapContainer {
