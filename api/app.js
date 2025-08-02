@@ -8,7 +8,18 @@ import userRoute from "./routes/user.route.js"
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }))
+const allowedOrigins = process.env.CLIENT_URLS?.split(',') || [];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow request
+    } else {
+      callback(new Error("Not allowed by CORS")); // Block request
+    }
+  },
+  credentials: true
+}));
 app.use(express.json())
 app.use(cookieParser())
 
