@@ -61,10 +61,11 @@
       }
   
       .avatar{
-        width: 50%;
-        height: auto;
-        border-radius: 50%; 
+        height: 200px;
+        width: 200px;
+        border-radius: 1000px;
         object-fit: cover;
+        overflow: hidden;
       }
     }
   }

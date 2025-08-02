@@ -5,6 +5,7 @@ import apiRequest from '../../lib/apiRequest';
 import { Await, Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import { AuthContext } from '../../Context/AuthContext';
+import { FaEnvelope, FaUser } from 'react-icons/fa6';
 
 function ProfilePage() {
   const data = useLoaderData();
@@ -48,10 +49,10 @@ function ProfilePage() {
               </span>
               <div className="text">
                 <span>
-                  Name: {currentUser.username}
+                  <FaUser className='icons'/><span className='b'>Name:</span> {currentUser.username}
                 </span>
                 <span>
-                  E-mail: {currentUser.email}
+                  <FaEnvelope className='icons'/><span className='b'>E-mail:</span> {currentUser.email}
                 </span>
               </div>
               <button onClick={handleLogout} className='nav-links'>Logout</button>
