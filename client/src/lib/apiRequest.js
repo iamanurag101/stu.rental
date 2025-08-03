@@ -1,36 +1,8 @@
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL: "/api",
   withCredentials: true,
-});
-
-// Automatically attach token to every request if available
-apiRequest.interceptors.request.use((config) => {
-  const token = JSON.parse(localStorage.getItem('user'))?.token;
-  console.log('Request Token:', token);
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
-
-// Handle responses and errors
-apiRequest.interceptors.request.use((config) => {
-  try {
-    const storedUser = localStorage.getItem('user');
-    const token = storedUser ? JSON.parse(storedUser)?.token : null;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-  } catch (err) {
-    console.error("Failed to parse token from localStorage", err);
-  }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
 });
 
 // Method to update a post
