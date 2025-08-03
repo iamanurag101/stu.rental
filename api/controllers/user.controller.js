@@ -112,22 +112,26 @@ export const savePost = async (req, res) => {
             },
         });
 
+        let message;
+
         if (savedPost) {
             await prisma.savedPost.delete({
-                where: {
-                    id: savedPost.id,
-                },
+                where: { id: savedPost.id },
             });
-            res.status(200).json({ message: "Post removed from saved list" });
+            message = "Post removed from saved list";
         } else {
             await prisma.savedPost.create({
-                data: {
-                    userId: tokenUserId,
-                    postId,
-                },
+                data: { userId: tokenUserId, postId },
             });
-            res.status(200).json({ message: "Post saved" });
+            message = "Post saved";
         }
+        
+        const profilePostsCacheKey = `user:${tokenUserId}:profilePosts`;
+        await redisClient.del(profilePostsCacheKey);
+        console.log(`CACHE INVALIDATED for key: ${profilePostsCacheKey}`);
+
+        res.status(200).json({ message });
+
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Failed to save post!" });
