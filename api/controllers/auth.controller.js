@@ -9,11 +9,11 @@ export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    //hash the pass
+    // hash the pass
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    //create new user and save to db
+    // create new user and save to db
     const newUser = await prisma.user.create({
       data: {
         username,
@@ -47,21 +47,20 @@ export const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    //check if user exists
+    // check if user exists
     const user = await prisma.user.findUnique({
       where: { username },
     });
 
     if (!user) return res.status(400).json({ message: "Invalid Credentials!" });
 
-    //check if the password is correct
+    // check if the password is correct
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid)
       return res.status(400).json({ message: "Invalid Credentials!" });
 
-    //generate cookie and send to user
-    // res.setHeader("Set-Cookie", "test=" + "myValue").json("success")
+    // generate cookie and send to user
     const age = 1000 * 60 * 60 * 24 * 7;
 
     const token = jwt.sign(
@@ -75,12 +74,12 @@ export const login = async (req, res) => {
 
     const { password: userPassword, ...userInfo } = user;
 
-    res.cookie("token", token, {
+    res
+      .cookie("token", token, {
         httpOnly: true,
         sameSite: "None",
-        secure:true,
+        secure:true, 
         maxAge: age,
-        path: "/",
       })
       .status(200)
       .json(userInfo);
@@ -91,10 +90,5 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    sameSite: "None",
-    secure: true,
-    path: "/",
-  }).status(200).json({ message: "Logout Successful" });
+  res.clearCookie("token").status(200).json({ message: "Logout Successful" });
 };
