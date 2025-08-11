@@ -41,10 +41,11 @@
   <h2>Overview</h2>
   <p>This is a full-stack student rental information website built using technologies:</p>
   <ul>
-    <li><strong>Backend:</strong> Express, Node.js and Vanilla Javascript</li>
+    <li><strong>Backend:</strong> Express.js, Node.js and Vanilla Javascript</li>
     <li><strong>Frontend:</strong> React.js, Leaflet.js and SCSS</li>
-    <li><strong>Database:</strong> mongoDB</li>
+    <li><strong>Database:</strong> MongoDB</li>
     <li><strong>ORM:</strong> Prisma </li>
+    <li><strong>Caching / In-memory Store:</strong> Redis</li>
   </ul>
 
   <p>The platform allows students to browse and post rental listings for other students. They can create account, add and manage their own property listings. It is optimized for real-time updates and offers a dynamic user experience with map integration.</p>
@@ -56,7 +57,7 @@
   <div class="images">
     <div class="image-container">
       <p class="image-label">High-Level Overview:</p>
-      <img src="https://drive.google.com/uc?export=view&id=1oRXPu9cmhkqtPTlxdURkfl4OKdmefl_h" alt="High-Level Overview">
+      <img src="https://drive.google.com/uc?export=view&id=1RkoLQuU5mj9BrAgI73P5IsITLfIGtXaE" alt="High-Level Overview">
     </div>
     <div class="image-container">
       <p class="image-label">User Data Model:</p>
@@ -82,3 +83,4 @@
   </div>
 </body>
 </html>
+
