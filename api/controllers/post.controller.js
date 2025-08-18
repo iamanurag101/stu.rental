@@ -3,7 +3,22 @@ import jwt from "jsonwebtoken";
 import { getOrSetCache } from "../utils/cache.js";
 import redisClient from "../lib/redis.js";
 
+const logExecutionTime = (startTime, status, resource) => {
+  const endTime = process.hrtime(startTime);
+  const durationInMs = (endTime[0] * 1000 + endTime[1] / 1e6).toFixed(2);
+
+  console.log("\n-----------------------------------------");
+  console.log(`Resource Requested: ${resource}`);
+  console.log(`Request initiated at: ${new Date().toLocaleTimeString('en-IN', { hour12: false })}`);
+  console.log(`Cache Status:         ${status}`);
+  console.log(`Response generated in:  ${durationInMs} ms`);
+  console.log("-----------------------------------------");
+};
+
 export const getPosts = async (req, res) => {
+
+  const startTime = process.hrtime();
+
   const query = req.query;
   // creating a unique cache key based on the query parameters
   const cacheKey = `posts:all:${JSON.stringify(query)}`;
@@ -23,6 +38,8 @@ export const getPosts = async (req, res) => {
           },
         },
       });
+    }, (status) => {
+      logExecutionTime(startTime, status, "All Posts");
     });
     res.status(200).json(posts);
   } catch (err) {
