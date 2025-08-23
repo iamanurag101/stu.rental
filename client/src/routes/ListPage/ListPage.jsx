@@ -1,6 +1,6 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import './ListPage.scss';
-import { useLoaderData, Await } from 'react-router-dom';
+import { useLoaderData, Await, useLocation } from 'react-router-dom';
 import Filter from '../../components/Filter/Filter';
 import Card from '../../components/Card/Card';
 import Map from '../../components/Map/Map';
@@ -11,17 +11,19 @@ const ITEMS_PER_PAGE = 3;
 
 function ListPage({ isHome }) {
   const data = useLoaderData();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const currentPage = parseInt(searchParams.get("page")) || 1;
 
   if (!data || !data.postResponse) {
     return <p>Error: Data not found.</p>;
   }
 
-  const paginate = (items, currentPage) => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return items.slice(start, start + ITEMS_PER_PAGE);
-  };
+  // const paginate = (items, currentPage) => {
+  //   const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  //   return items.slice(start, start + ITEMS_PER_PAGE);
+  // };
 
   return (
     <div className={`listPage ${isHome ? 'homePageStyle' : 'regularPageStyle'}`}>
@@ -40,42 +42,27 @@ function ListPage({ isHome }) {
               errorElement={<p>Error loading posts!</p>}
             >
               {(postResponse) => {
-                const posts = postResponse.data;
+                const paginatedPosts = postResponse.data.posts;
+                const totalPosts = postResponse.data.totalPosts;
+                const totalPages = Math.ceil(totalPosts / 3);
 
-                useEffect(() => {
-                  if (!isHome) {
-                    setTotalPages(Math.ceil(posts.length / ITEMS_PER_PAGE));
-                  }
-                }, [posts]);
+                // for the homepage, we still only want to show the first 3 items.
+                // the backend sends 3, so we can just use the data directly.
+                const postsToShow = isHome ? paginatedPosts.slice(0, 3) : paginatedPosts;
 
-                const paginatedPosts = isHome
-                  ? posts.slice(0, 3)
-                  : paginate(posts, currentPage);
-
-                return posts.length > 0 ? (
+                return postsToShow.length > 0 ? (
                   <>
                     <div className={`cardsContainer ${isHome ? 'homeCardsContainer' : ''}`}>
-                      {paginatedPosts.map((item) => (
+                      {postsToShow.map((item) => (
                         <Card key={item.id} item={item} isHome={isHome} />
                       ))}
                     </div>
 
                     {!isHome && totalPages > 1 && (
-                      <div className="pagination">
-                        <button
-                          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                          disabled={currentPage === 1}
-                        >
-                          Prev
-                        </button>
-                        <span>Page {currentPage} of {totalPages}</span>
-                        <button
-                          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                          disabled={currentPage === totalPages}
-                        >
-                          Next
-                        </button>
-                      </div>
+                      <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                      />
                     )}
                   </>
                 ) : (
@@ -94,16 +81,42 @@ function ListPage({ isHome }) {
             errorElement={<p>Error loading map data!</p>}
           >
             {(postResponse) => {
-              const posts = postResponse.data;
-              const paginatedPosts = isHome
-                ? posts.slice(0, 3)
-                : paginate(posts, currentPage);
-
-              return <Map items={paginatedPosts} />;
+              const postsForMap = postResponse.data.posts;
+              return <Map items={postsForMap} />;
             }}
           </Await>
         </Suspense>
       </div>
+    </div>
+  );
+}
+
+function Pagination({ currentPage, totalPages }){
+  
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const createPageUrl = (pageNumber) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("page", pageNumber);
+    return `/list?${newParams.toString()}`;
+  };
+
+  return (
+    <div className="pagination">
+      <Link
+        to={createPageUrl(currentPage - 1)}
+        className={currentPage === 1 ? "disabled" : ""}
+      >
+        <button disabled={currentPage === 1}>Prev</button>
+      </Link>
+      <span>Page {currentPage} of {totalPages}</span>
+      <Link
+        to={createPageUrl(currentPage + 1)}
+        className={currentPage === totalPages ? "disabled" : ""}
+      >
+        <button disabled={currentPage === totalPages}>Next</button>
+      </Link>
     </div>
   );
 }
