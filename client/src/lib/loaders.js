@@ -14,7 +14,7 @@ export const singlePageLoader = async ({ request, params }) => {
 
 export const listPageLoader = async ({ request }) => {
   const query = request.url.split("?")[1];
-  const url = query ? `/posts?${query}` : "/posts";
+  const url = `/posts?${query || ""}`;
   console.log("Fetching posts from URL:", url); // Debugging log
 
   try {
@@ -30,16 +30,14 @@ export const listPageLoader = async ({ request }) => {
   }
 };
 
-export const profilePageLoader = async () => {
-  try {
-    const postPromise = apiRequest("/users/profilePosts");
-    return defer({
-      postResponse: postPromise,
-    });
-  } catch (error) {
-    console.error("Error fetching profile posts:", error);
-    return defer({
-      postResponse: Promise.reject(error),
-    });
-  }
+export const profilePageLoader = async ({ request }) => {
+  const url = new URL(request.url);
+  const myPostsPage = url.searchParams.get("myPostsPage") || "1";
+  const savedPostsPage = url.searchParams.get("savedPostsPage") || "1";
+
+  const postPromise = apiRequest.get(`/users/profilePosts?myPostsPage=${myPostsPage}&savedPostsPage=${savedPostsPage}`);
+  
+  return defer({
+    postResponse: postPromise,
+  });
 };

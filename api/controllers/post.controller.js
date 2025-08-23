@@ -15,33 +15,58 @@ const logExecutionTime = (startTime, status, resource) => {
   console.log("-----------------------------------------");
 };
 
+/*
+
+  -------------------------------------------
+  Some Redis Logs
+  -------------------------------------------
+  Ops/sec:
+  Min: 0 Avg: 0.69 Max: 8 Last: 0
+  -------------------------------------------
+  Latency:
+  Min: 0ms Avg: 0.04ms Max: 0.15ms Last: 0ms
+  -------------------------------------------
+
+*/
+
 export const getPosts = async (req, res) => {
 
   const startTime = process.hrtime();
 
   const query = req.query;
-  // creating a unique cache key based on the query parameters
-  const cacheKey = `posts:all:${JSON.stringify(query)}`;
+  const postsPerPage = 3;
+  const page = parseInt(query.page) || 1;
+
+  const cacheKey = `posts:all:${JSON.stringify(query)}:page:${page}`;
 
   try {
-    const posts = await getOrSetCache(cacheKey, async () => {
+    const paginatedData = await getOrSetCache(cacheKey, async () => {
       // this function only runs on a CACHE MISS
-      return prisma.post.findMany({
-        where: {
-          city: query.city || undefined,
-          type: query.type || undefined,
-          property: query.property || undefined,
-          bedroom: parseInt(query.bedroom) || undefined,
-          price: {
-            gte: parseInt(query.minPrice) || undefined,
-            lte: parseInt(query.maxPrice) || undefined,
-          },
+      const whereClause = {
+        city: query.city || undefined,
+        type: query.type || undefined,
+        property: query.property || undefined,
+        bedroom: parseInt(query.bedroom) || undefined,
+        price: {
+          gte: parseInt(query.minPrice) || undefined,
+          lte: parseInt(query.maxPrice) || undefined,
         },
+      };
+
+      const posts = await prisma.post.findMany({
+        where: whereClause,
+        take: postsPerPage,
+        skip: (page - 1) * postsPerPage,
       });
+
+      const totalPosts = await prisma.post.count({ where: whereClause });
+
+      return { posts, totalPosts };
+
     }, (status) => {
-      logExecutionTime(startTime, status, "All Posts");
+      logExecutionTime(startTime, status, `All Posts (Page ${page})`);
     });
-    res.status(200).json(posts);
+    res.status(200).json(paginatedData);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get posts" });
@@ -103,6 +128,19 @@ export const getPost = async (req, res) => {
   }
 };
 
+const invalidateProfileCache = async (userId) => {
+  try{
+    const keys = await redisClient.keys(`user:${userId}:profilePosts:*`);
+    if(keys.length > 0){
+      await redisClient.del(keys);
+      console.log(`CACHE INVALIDATED for user profile pages: ${userId}`);
+    }
+  }
+  catch (err){
+    console.error("Failed to invalidate profile cache:", err);
+  }
+};
+
 
 export const addPost = async (req, res) => {
   const body = req.body;
@@ -126,10 +164,7 @@ export const addPost = async (req, res) => {
         console.log("CACHE INVALIDATED for all posts list.");
     }
 
-    // invalidate the cache for the user's own profile posts.
-    const profilePostsCacheKey = `user:${tokenUserId}:profilePosts`;
-    await redisClient.del(profilePostsCacheKey);
-    console.log(`CACHE INVALIDATED for key: ${profilePostsCacheKey}`);
+    await invalidateProfileCache(tokenUserId);
 
     res.status(200).json(newPost);
   } catch (err) {
@@ -172,10 +207,7 @@ export const updatePost = async (req, res) => {
             console.log("CACHE INVALIDATED for all posts list.");
         }
 
-        // invalidate the user's profile posts cache.
-        const profilePostsCacheKey = `user:${tokenUserId}:profilePosts`;
-        await redisClient.del(profilePostsCacheKey);
-        console.log(`CACHE INVALIDATED for key: ${profilePostsCacheKey}`);
+        await invalidateProfileCache(tokenUserId);
         
         res.status(200).json({ message: "Post updated successfully" });
     } catch (err) {
@@ -217,10 +249,7 @@ export const deletePost = async (req, res) => {
         console.log("CACHE INVALIDATED for all posts list.");
     }
 
-    // invalidate the cache for the user's profile posts
-    const profilePostsCacheKey = `user:${tokenUserId}:profilePosts`;
-    await redisClient.del(profilePostsCacheKey);
-    console.log(`CACHE INVALIDATED for key: ${profilePostsCacheKey}`);
+    await invalidateProfileCache(tokenUserId);
 
     res.status(200).json({ message: "Post deleted" });
   } catch (err) {
@@ -228,5 +257,4 @@ export const deletePost = async (req, res) => {
     res.status(500).json({ message: "Failed to delete post" });
   }
 };
-
 

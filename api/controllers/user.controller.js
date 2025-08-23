@@ -3,6 +3,18 @@ import bcrypt from "bcrypt";
 import { getOrSetCache } from "../utils/cache.js";
 import redisClient from "../lib/redis.js";
 
+const logExecutionTime = (startTime, status, resource) => {
+  const endTime = process.hrtime(startTime);
+  const durationInMs = (endTime[0] * 1000 + endTime[1] / 1e6).toFixed(2);
+
+  console.log("\n-----------------------------------------");
+  console.log(`Resource Requested: ${resource}`);
+  console.log(`Request initiated at: ${new Date().toLocaleTimeString('en-IN', { hour12: false })}`);
+  console.log(`Cache Status:         ${status}`);
+  console.log(`Response generated in:  ${durationInMs} ms`);
+  console.log("-----------------------------------------");
+};
+
 export const getUsers = async (req, res) => {
   const cacheKey = "users:all";
   try {
@@ -112,25 +124,23 @@ export const savePost = async (req, res) => {
             },
         });
 
-        let message;
-
         if (savedPost) {
             await prisma.savedPost.delete({
                 where: { id: savedPost.id },
             });
-            message = "Post removed from saved list";
+            res.status(200).json({ message: "Post removed from saved list" });
         } else {
             await prisma.savedPost.create({
                 data: { userId: tokenUserId, postId },
             });
-            message = "Post saved";
+            res.status(200).json({ message: "Post saved" });
         }
         
-        const profilePostsCacheKey = `user:${tokenUserId}:profilePosts`;
-        await redisClient.del(profilePostsCacheKey);
-        console.log(`CACHE INVALIDATED for key: ${profilePostsCacheKey}`);
-
-        res.status(200).json({ message });
+        const profileCacheKeys = await redisClient.keys(`user:${tokenUserId}:profilePosts:*`);
+        if(profileCacheKeys.length > 0){
+            await redisClient.del(profileCacheKeys);
+            console.log(`CACHE INVALIDATED for user profile pages: ${tokenUserId}`);
+        }
 
     } catch (err) {
         console.log(err);
@@ -139,23 +149,57 @@ export const savePost = async (req, res) => {
 };
 
 export const profilePosts = async (req, res) => {
+
+    const startTime = process.hrtime();
+    
     const tokenUserId = req.userId;
-    const cacheKey = `user:${tokenUserId}:profilePosts`;
+    const postsPerPage = 3;
+
+    const myPostsPage = parseInt(req.query.myPostsPage) || 1;
+    const savedPostsPage = parseInt(req.query.savedPostsPage) || 1;
+
+    const cacheKey = `user:${tokenUserId}:profilePosts:my:${myPostsPage}:saved:${savedPostsPage}`;
 
     try {
-        const userPosts = await getOrSetCache(cacheKey, async () => {
-            const posts = await prisma.post.findMany({
-                where: { userId: tokenUserId },
-            });
-            const saved = await prisma.savedPost.findMany({
-                where: { userId: tokenUserId },
-                include: { post: true },
-            });
-            const savedPosts = saved.map((item) => item.post);
-            return { userPosts: posts, savedPosts };
+        const paginatedData = await getOrSetCache(cacheKey, async () => {
+          
+          const userPosts = await prisma.post.findMany({
+            where: {userId: tokenUserId},
+            take: postsPerPage,
+            skip: (myPostsPage - 1) * postsPerPage,
+          });
+
+          const saved = await prisma.savedPost.findMany({
+            where: {userId: tokenUserId},
+            take: postsPerPage,
+            skip: (savedPostsPage - 1) * postsPerPage,
+            include: {post: true},
+          });
+
+          const savedPosts = saved.map((item) => item.post);
+
+          const totalUserPosts = await prisma.post.count({
+            where: {userId: tokenUserId},
+          });
+
+          const totalSavedPosts = await prisma.savedPost.count({
+            where: {userId: tokenUserId},
+          });
+
+          return{
+            userPosts,
+            savedPosts,
+            totalUserPosts,
+            totalSavedPosts,
+          };
+
+        }, (status) => {
+          const resource = `Profile Posts (My Listings Page: ${myPostsPage}, Saved Listings Page: ${savedPostsPage})`;
+          logExecutionTime(startTime, status, resource);
         });
 
-        res.status(200).json(userPosts);
+        res.status(200).json(paginatedData);
+
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Failed to get profile posts!" });
