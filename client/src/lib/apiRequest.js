@@ -5,6 +5,25 @@ const apiRequest = axios.create({
   withCredentials: true,
 });
 
+apiRequest.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if(error.response && (error.response.status === 401 || error.response.status === 403)){
+      
+      console.log("Authentication error, forcing global logout.");
+      
+      localStorage.removeItem("user");
+
+      if(window.location.pathname !== "/login"){
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Method to update a post
 export const updatePost = async (postId, postData) => {
   try {
